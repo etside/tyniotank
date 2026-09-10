@@ -19,7 +19,7 @@ export default function DealDetail() {
   const [ndaOpen, setNdaOpen] = useState(false);
   const [invName, setInvName] = useState("");
 
-  const allDeals: Deal[] = [...DEALS, ...customDeals];
+  const allDeals = [...DEALS, ...customDeals];
   const raw = allDeals.find((d) => d.id === id);
   if (!raw) return (
     <div className="space-y-4 py-20 text-center">

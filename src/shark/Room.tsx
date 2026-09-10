@@ -1,163 +1,235 @@
 import { useMemo, useState } from "react";
-import { useParams, Link } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
+import { Link, useParams } from "react-router-dom";
 import { toast } from "sonner";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
-import { useShark, fmt$, fmtTime, bidScore } from "./store";
+import { AnimatePresence, motion } from "framer-motion";
+import { BadgeCheck, Gavel, MessageSquare, PieChart, Play, Send, ShieldCheck, Sparkles, TrendingUp, Users } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Textarea } from "@/components/ui/textarea";
+import { useShark, fmt$, type ChatMsg } from "./store";
+import { livePublish } from "./realtime";
+import { useAccess, effectiveDeal } from "./access";
+import { DEALS } from "./deals";
 
-const DECK = [
-  { t: "Problem", b: "Support teams drown in repetitive tier-1 tickets; agents burn hours on copy-paste replies." },
-  { t: "Solution", b: "An MCP-native agent layer that resolves 60% of tickets end-to-end with audit trails." },
-  { t: "Traction", b: "$48K MRR, 34 paying logos, 140% NRR, 6-week payback on CAC." },
-  { t: "Ask", b: "$500K for 8% — funds GTM hire + SOC2 + enterprise integrations." },
+const SLIDES: Record<string, { label: string; metric: string; value: string }[]> = {
+  p1: [
+    { label: "Problem", metric: "analysts still reconcile by hand", value: "6.5 hrs/week" },
+    { label: "Product", metric: "AI reconciliation across 40+ ledgers", value: "99.2% match rate" },
+    { label: "Traction", metric: "ARR growth since launch", value: "+28% MoM" },
+    { label: "Market", metric: "SMB finance automation TAM", value: "$19.4B" },
+  ],
+};
+const FALLBACK_SLIDES = [
+  { label: "Problem", metric: "status quo is slow and manual", value: "3× cost" },
+  { label: "Product", metric: "shipping weekly, iterating live", value: "v3 live" },
+  { label: "Traction", metric: "paying users since launch", value: "+40% MoM" },
+  { label: "Why now", metric: "category inflection", value: "2026" },
 ];
 
 export default function Room() {
-  const { id } = useParams();
+  const { id = "p1" } = useParams();
   const pitch = useShark((s) => s.pitches.find((p) => p.id === id));
+  const session = useShark((s) => s.session);
   const bids = useShark((s) => s.bids);
+  const chat = useShark((s) => s.chat[id] ?? []);
+  const polls = useShark((s) => s.polls.filter((p) => p.pitchId === id));
   const submitBid = useShark((s) => s.submitBid);
-  const [amount, setAmount] = useState("");
-  const [equity, setEquity] = useState("");
+  const addChat = useShark((s) => s.addChat);
+  const votePoll = useShark((s) => s.votePoll);
+
+  const overrides = useAccess((s) => s.overrides);
+  const deal = useMemo(() => {
+    const raw = DEALS.find((d) => d.id === id);
+    return raw ? effectiveDeal(raw, overrides) : null;
+  }, [id, overrides]);
+
+  const [amount, setAmount] = useState(50000);
+  const [equity, setEquity] = useState(10);
   const [valueAdd, setValueAdd] = useState("");
-  const [confirm, setConfirm] = useState(false);
-  const [chat, setChat] = useState<{ who: string; msg: string }[]>([
-    { who: "Moderator", msg: "Q&A open. Keep questions on-topic; bids are final once submitted." },
-    { who: "Blue Harbor", msg: "What's your gross retention on the enterprise tier?" },
-  ]);
   const [draft, setDraft] = useState("");
 
-  const ranked = useMemo(() => {
-    if (!pitch) return [];
-    return bids.filter((b) => b.pitchId === pitch.id)
-      .map((b) => ({ ...b, score: bidScore(b, pitch.ruleWeights, pitch.ask) }))
-      .sort((a, b) => b.score - a.score)
-      .slice(0, 5);
-  }, [bids, pitch]);
+  if (!pitch) return <p className="text-white/50">Pitch not found.</p>;
+  const slides = SLIDES[id] ?? FALLBACK_SLIDES;
+  const pitchBids = bids.filter((b) => b.pitchId === id).sort((a, b) => b.amount - a.amount);
 
-  if (!pitch) return <Link to="/shark" className="text-[#0EA5E9]">← Back to lobby</Link>;
-  const myBid = bids.find((b) => b.mine && b.pitchId === pitch.id);
+  const canBid = session.kyc === "verified" && session.categories.includes(pitch.category);
+  const minAsk = Math.round(pitch.ask * 0.05);
 
   const fire = () => {
-    const r = submitBid(pitch.id, Number(amount), Number(equity), valueAdd);
-    setConfirm(false);
-    if (r.ok) toast.success("Bid submitted — locked. You'll be notified at close.");
-    else toast.error(r.reason);
+    const r = submitBid(id, amount, equity, valueAdd.trim());
+    if (!r.ok) return toast.error(r.reason);
+    if (r.bid) livePublish({ kind: "bid", bid: r.bid });
+    toast.success(`Bid submitted — ${fmt$(amount)} for ${equity}%`);
+    setValueAdd("");
   };
 
+  const send = () => {
+    const msg = draft.trim();
+    if (!msg) return;
+    const m: ChatMsg = { id: crypto.randomUUID(), pitchId: id, who: session.name, msg, at: Date.now(), mine: true };
+    addChat(m);
+    livePublish({ kind: "chat", msg: m });
+    setDraft("");
+  };
+
+  const myPollVote = (pollId: string) => useShark.getState().polls.find((p) => p.id === pollId)?.votes.some((v) => v.voter === session.name);
+
   return (
-    <div className="grid gap-6 lg:grid-cols-[1.1fr_1fr_1fr]">
-      {/* ── Left: video + Q&A ── */}
-      <section className="space-y-4">
-        <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#151B4D] to-[#3B4EFA]">
-          <div className="flex aspect-video items-center justify-center">
-            <div className="text-center">
-              <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-white/10 text-2xl font-black backdrop-blur">{pitch.logoLetter}</span>
-              <p className="mt-3 font-bold">{pitch.startup} — founder live</p>
-            </div>
-          </div>
-          <span className="absolute left-3 top-3 flex items-center gap-1.5 rounded-full bg-[#D50000] px-2.5 py-1 text-[11px] font-bold">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-white" /> WebRTC · sub-second
-          </span>
-          <span className="absolute right-3 top-3 rounded-full bg-black/40 px-2 py-1 text-[11px] font-mono">{fmtTime(pitch.endsInSec)}</span>
+    <div className="space-y-4">
+      {/* header */}
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h1 className="flex items-center gap-2 text-2xl font-extrabold tracking-tight">
+            {pitch.startup}
+            <span className="flex items-center gap-1.5 rounded-full bg-[#D50000]/15 px-2.5 py-1 text-[10px] font-black uppercase text-[#ff5c5c]"><span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#D50000]" /> live</span>
+          </h1>
+          <p className="text-sm text-white/50">{pitch.category} · asking {fmt$(pitch.ask)} for {pitch.equity}%</p>
         </div>
-        <div className="rounded-2xl border border-white/10 bg-white/[0.04]">
-          <p className="border-b border-white/10 px-4 py-2.5 text-xs font-bold uppercase tracking-widest text-white/40">Founder Q&A · moderated</p>
-          <div className="max-h-48 space-y-2 overflow-y-auto p-4 text-sm">
-            {chat.map((c, i) => (
-              <p key={i}><span className={`font-bold ${c.who === "Moderator" ? "text-[#00C853]" : "text-[#0EA5E9]"}`}>{c.who}: </span><span className="text-white/80">{c.msg}</span></p>
-            ))}
-          </div>
-          <form className="flex gap-2 border-t border-white/10 p-3" onSubmit={(e) => { e.preventDefault(); if (!draft.trim()) return; setChat((c) => [...c, { who: "You", msg: draft.trim() }]); setDraft(""); }}>
-            <input value={draft} onChange={(e) => setDraft(e.target.value)} placeholder="Ask the founder…" className="flex-1 rounded-full bg-white/5 px-4 py-2 text-sm outline-none ring-[#3B4EFA] placeholder:text-white/30 focus:ring-1" />
-            <button className="rounded-full bg-[#3B4EFA] px-4 text-sm font-bold">Send</button>
-          </form>
-        </div>
-      </section>
+        {deal && <Badge variant="outline" className="border-[#3B4EFA]/40 bg-[#3B4EFA]/10 text-[#8b9bff]">listed deal</Badge>}
+      </div>
 
-      {/* ── Center: deck + metrics ── */}
-      <section className="space-y-4">
-        <div className="grid grid-cols-2 gap-3">
-          {[["Ask", fmt$(pitch.ask)], ["Equity", `${pitch.equity}%`], ["Valuation", fmt$(Math.round(pitch.ask / (pitch.equity / 100)))], ["Time left", fmtTime(pitch.endsInSec)]].map(([k, v]) => (
-            <div key={k} className="rounded-xl border border-white/10 bg-white/[0.04] p-4">
-              <p className="text-[10px] uppercase tracking-widest text-white/40">{k}</p>
-              <p className="mt-1 text-xl font-black tabular-nums">{v}</p>
+      <div className="grid gap-4 lg:grid-cols-[1fr_320px]">
+        {/* stage + tabs */}
+        <div className="space-y-4">
+          <div className="relative aspect-video overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#1a1c33] via-[#141420] to-black">
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
+              <span className="flex h-16 w-16 items-center justify-center rounded-full bg-[#3B4EFA]/20 ring-1 ring-[#3B4EFA]/50"><Play className="h-7 w-7 fill-white text-white" /></span>
+              <p className="text-sm font-bold">{pitch.startup} pitching live</p>
+              <p className="text-xs text-white/40">HD · low-latency · recorded for compliance</p>
             </div>
-          ))}
-        </div>
-        <div className="max-h-[420px] space-y-3 overflow-y-auto rounded-2xl border border-white/10 bg-white/[0.04] p-5">
-          <p className="text-xs font-bold uppercase tracking-widest text-white/40">Pitch deck</p>
-          {DECK.map((d, i) => (
-            <div key={d.t} className="rounded-xl bg-gradient-to-br from-white/[0.06] to-transparent p-4 ring-1 ring-white/10">
-              <p className="text-[10px] font-bold text-[#0EA5E9]">SLIDE {i + 1}</p>
-              <p className="font-bold">{d.t}</p>
-              <p className="mt-1 text-sm text-white/70">{d.b}</p>
-            </div>
-          ))}
-        </div>
-      </section>
+            <div className="absolute left-3 top-3 flex items-center gap-2 rounded-full bg-black/50 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-white/70"><Users className="h-3 w-3 text-[#0EA5E9]" /> {12 + pitchBids.length * 2} in room</div>
+          </div>
 
-      {/* ── Right: bidding panel ── */}
-      <section className="space-y-4">
-        <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
-          <p className="text-xs font-bold uppercase tracking-widest text-white/40">Place bid</p>
-          {myBid ? (
-            <div className="mt-3 rounded-xl bg-[#00C853]/10 p-4 text-sm">
-              <p className="font-bold text-[#00C853]">Bid locked ✓</p>
-              <p className="mt-1 text-white/70">{fmt$(myBid.amount)} for {myBid.equity}% — {myBid.valueAdd || "no value-add"}</p>
-              <p className="mt-2 text-xs text-white/40">Bids cannot be edited once submitted.</p>
-            </div>
-          ) : (
-            <form className="mt-3 space-y-3" onSubmit={(e) => { e.preventDefault(); if (!Number(amount) || !Number(equity)) return toast.error("Enter amount and equity."); setConfirm(true); }}>
-              <div className="grid grid-cols-2 gap-3">
-                <label className="block"><span className="text-xs text-white/50">Amount (USD)</span>
-                  <input type="number" min={1000} value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="500000" className="mt-1 w-full rounded-lg bg-white/5 px-3 py-2 text-sm font-bold tabular-nums outline-none ring-[#3B4EFA] focus:ring-1" /></label>
-                <label className="block"><span className="text-xs text-white/50">Equity (%)</span>
-                  <input type="number" min={1} max={50} value={equity} onChange={(e) => setEquity(e.target.value)} placeholder="8" className="mt-1 w-full rounded-lg bg-white/5 px-3 py-2 text-sm font-bold tabular-nums outline-none ring-[#3B4EFA] focus:ring-1" /></label>
+          <Tabs defaultValue="deck">
+            <TabsList className="border border-white/10 bg-white/[0.04]">
+              <TabsTrigger value="deck" className="data-[state=active]:bg-[#3B4EFA]/20"><Sparkles className="mr-1.5 h-3.5 w-3.5" />Pitch deck</TabsTrigger>
+              <TabsTrigger value="qa" className="data-[state=active]:bg-[#3B4EFA]/20"><MessageSquare className="mr-1.5 h-3.5 w-3.5" />Q&A {chat.length > 0 && <span className="ml-1 text-[10px] text-white/40">{chat.length}</span>}</TabsTrigger>
+              <TabsTrigger value="polls" className="data-[state=active]:bg-[#3B4EFA]/20"><PieChart className="mr-1.5 h-3.5 w-3.5" />Polls {polls.length > 0 && <span className="ml-1 text-[10px] text-white/40">{polls.length}</span>}</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="deck" className="mt-3">
+              <div className="grid gap-3 sm:grid-cols-2">
+                {slides.map((s, i) => (
+                  <motion.div key={s.label} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }} className="rounded-xl border border-white/10 bg-white/[0.04] p-4">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-[#0EA5E9]">{s.label}</p>
+                    <p className="mt-1 text-lg font-extrabold">{s.value}</p>
+                    <p className="text-xs text-white/40">{s.metric}</p>
+                  </motion.div>
+                ))}
               </div>
-              <label className="block"><span className="text-xs text-white/50">What I bring beyond capital</span>
-                <select value={valueAdd} onChange={(e) => setValueAdd(e.target.value)} className="mt-1 w-full rounded-lg bg-[#1b1b1f] px-3 py-2 text-sm outline-none ring-[#3B4EFA] focus:ring-1">
-                  <option value="">— none —</option>
-                  <option>Mentorship (GTM)</option><option>Distribution / channel</option><option>Compliance & licensing</option><option>Hiring network</option><option>Follow-on capital</option>
-                </select></label>
-              <button className="w-full rounded-full bg-[#00C853] py-3 text-sm font-black text-black transition-transform hover:scale-[1.02]">Submit Bid</button>
-            </form>
-          )}
-        </div>
-        <div className="rounded-2xl border border-white/10 bg-white/[0.04]">
-          <p className="border-b border-white/10 px-4 py-2.5 text-xs font-bold uppercase tracking-widest text-white/40">Live bids · algorithm score</p>
-          <AnimatePresence>
-            {ranked.map((b, i) => (
-              <motion.div key={b.id} layout initial={{ opacity: 0, x: 12 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0 }}
-                className={`flex items-center gap-3 border-b border-white/5 px-4 py-3 text-sm ${b.mine ? "bg-[#3B4EFA]/10" : ""}`}>
-                <span className="w-4 text-xs font-black text-white/40">{i + 1}</span>
-                <div className="min-w-0 flex-1">
-                  <p className="truncate font-semibold">{b.investor}{b.mine && <span className="ml-1.5 rounded bg-[#3B4EFA] px-1.5 py-0.5 text-[9px] font-bold">YOU</span>}</p>
-                  <p className="text-xs text-white/50">{fmt$(b.amount)} · {b.equity}% · {b.valueAdd || "—"}</p>
-                </div>
-                <span className="rounded-lg bg-white/10 px-2 py-1 text-sm font-black tabular-nums text-[#0EA5E9]">{b.score}</span>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-          {!ranked.length && <p className="px-4 py-6 text-center text-sm text-white/40">No bids yet.</p>}
-        </div>
-      </section>
+            </TabsContent>
 
-      {/* ── confirmation modal ── */}
-      <Dialog open={confirm} onOpenChange={setConfirm}>
-        <DialogContent className="border-white/10 bg-[#161619] text-white">
-          <DialogHeader><DialogTitle>Confirm bid — this is final</DialogTitle>
-            <DialogDescription className="text-white/60">Bids are locked once submitted and cannot be edited. A winning bid that fails to execute the term sheet forfeits the deposit.</DialogDescription></DialogHeader>
-          <div className="rounded-xl bg-white/5 p-4 text-sm">
-            <p><span className="text-white/50">{pitch.startup}:</span> <b>{fmt$(Number(amount))}</b> for <b>{equity}%</b></p>
-            {valueAdd && <p className="mt-1 text-white/70">Value-add: {valueAdd}</p>}
+            <TabsContent value="qa" className="mt-3">
+              <div className="flex h-72 flex-col rounded-xl border border-white/10 bg-white/[0.04]">
+                <div className="flex-1 space-y-2.5 overflow-y-auto p-3">
+                  {chat.length === 0 && <p className="p-4 text-center text-sm text-white/40">No questions yet — open the floor.</p>}
+                  <AnimatePresence initial={false}>
+                    {chat.map((m) => (
+                      <motion.div key={m.id} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} className={`max-w-[85%] rounded-xl px-3 py-2 text-sm ${m.mine ? "ml-auto bg-[#3B4EFA]/20" : "bg-black/30"}`}>
+                        <p className={`text-[10px] font-black uppercase tracking-wider ${m.who === "Moderator" ? "text-[#FFB300]" : m.mine ? "text-[#8b9bff]" : "text-[#0EA5E9]"}`}>{m.who}</p>
+                        <p className="text-white/85">{m.msg}</p>
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                </div>
+                <div className="flex gap-2 border-t border-white/10 p-2">
+                  <Input className="border-white/10 bg-white/5" placeholder="Ask the founder…" value={draft} onChange={(e) => setDraft(e.target.value)} onKeyDown={(e) => e.key === "Enter" && send()} />
+                  <Button size="icon" className="bg-[#3B4EFA] hover:bg-[#2f3fd6]" onClick={send} aria-label="Send"><Send className="h-4 w-4" /></Button>
+                </div>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="polls" className="mt-3 space-y-3">
+              {polls.length === 0 && <p className="rounded-xl border border-dashed border-white/15 p-6 text-center text-sm text-white/40">No polls for this pitch yet — founders create them from Pitch Control.</p>}
+              {polls.map((p) => {
+                const voted = myPollVote(p.id);
+                const total = Math.max(1, p.votes.length);
+                return (
+                  <div key={p.id} className="rounded-xl border border-white/10 bg-white/[0.04] p-4">
+                    <p className="font-bold">{p.question}</p>
+                    <p className="text-xs text-white/40">{p.open ? (voted ? `You voted · ${p.votes.length} total votes` : `${p.votes.length} votes so far`) : `Closed · ${p.votes.length} votes`}</p>
+                    {p.open && !voted ? (
+                      <div className="mt-3 grid gap-2 sm:grid-cols-3">
+                        {p.options.map((o) => (
+                          <Button key={o} variant="outline" className="border-white/15 hover:border-[#3B4EFA] hover:bg-[#3B4EFA]/15" onClick={() => { votePoll(p.id, o, session.name); livePublish({ kind: "vote", pollId: p.id, option: o, voter: session.name }); toast(`Voted: ${o}`); }}>{o}</Button>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="mt-3 space-y-2">
+                        {p.options.map((o) => {
+                          const n = p.votes.filter((v) => v.option === o).length;
+                          return (
+                            <div key={o}>
+                              <div className="flex justify-between text-xs"><span className="text-white/70">{o}</span><span className="font-bold">{Math.round((n / total) * 100)}%</span></div>
+                              <div className="mt-0.5 h-2 overflow-hidden rounded-full bg-white/10">
+                                <motion.div className="h-full bg-[#3B4EFA]" initial={{ width: 0 }} animate={{ width: `${(n / total) * 100}%` }} transition={{ duration: 0.5 }} />
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </TabsContent>
+          </Tabs>
+        </div>
+
+        {/* bid panel */}
+        <div className="space-y-4">
+          <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+            <h3 className="flex items-center gap-2 text-sm font-black uppercase tracking-widest text-white/60"><Gavel className="h-4 w-4 text-[#FFB300]" /> Submit bid</h3>
+            <p className="mt-1 text-xs text-white/40">Escrow {fmt$(session.deposit)} · holds {fmt$(session.holds)}{!session.categories.includes(pitch.category) && ` · no ${pitch.category} deposit`}</p>
+            {session.kyc !== "verified" ? (
+              <div className="mt-3 rounded-xl border border-[#FFB300]/30 bg-[#FFB300]/10 p-3 text-xs text-[#FFB300]">
+                KYC verification required. <Link to="/shark/verify" className="font-bold underline">Get verified →</Link>
+              </div>
+            ) : !session.categories.includes(pitch.category) ? (
+              <div className="mt-3 rounded-xl border border-[#0EA5E9]/30 bg-[#0EA5E9]/10 p-3 text-xs text-[#7dd3fc]">
+                Deposit into <b>{pitch.category}</b> to unlock this room. <Link to="/shark/deposit" className="font-bold underline">Deposit →</Link>
+              </div>
+            ) : (
+              <div className="mt-3 space-y-3">
+                <label className="block">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-white/40">Amount (min {fmt$(minAsk)})</span>
+                  <Input type="number" className="mt-1 border-white/10 bg-white/5" value={amount} min={minAsk} onChange={(e) => setAmount(Number(e.target.value))} />
+                </label>
+                <label className="block">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-white/40">Equity % (1–50)</span>
+                  <Input type="number" className="mt-1 border-white/10 bg-white/5" value={equity} min={1} max={50} onChange={(e) => setEquity(Number(e.target.value))} />
+                </label>
+                <Textarea rows={2} className="border-white/10 bg-white/5" placeholder="What do you bring beyond capital?" value={valueAdd} onChange={(e) => setValueAdd(e.target.value)} />
+                <Button className="w-full bg-[#00C853] font-black text-black hover:bg-[#00b34a]" onClick={fire} disabled={amount < minAsk || equity < 1 || equity > 50 || amount > session.deposit - session.holds}>
+                  <TrendingUp className="h-4 w-4" /> Fire bid · {fmt$(amount)} for {equity}%
+                </Button>
+              </div>
+            )}
           </div>
-          <DialogFooter className="gap-2 sm:gap-0">
-            <button onClick={() => setConfirm(false)} className="rounded-full bg-white/10 px-5 py-2 text-sm font-bold">Cancel</button>
-            <button onClick={fire} className="rounded-full bg-[#00C853] px-5 py-2 text-sm font-black text-black">Lock it in</button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+
+          <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+            <h3 className="text-sm font-black uppercase tracking-widest text-white/60">Live bid feed</h3>
+            <div className="mt-2 space-y-2">
+              {pitchBids.length === 0 && <p className="py-3 text-center text-xs text-white/40">No bids yet — be the first.</p>}
+              <AnimatePresence initial={false}>
+                {pitchBids.map((b) => (
+                  <motion.div key={b.id} layout initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} className={`flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-sm ${b.mine ? "border border-[#3B4EFA]/40 bg-[#3B4EFA]/10" : "bg-black/30"}`}>
+                    <span className="flex items-center gap-1.5 font-semibold">{b.investor}{b.investor !== session.name && <BadgeCheck className="h-3.5 w-3.5 text-[#00C853]" />}</span>
+                    <span className="text-xs font-bold">{fmt$(b.amount)} · {b.equity}%</span>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-2 rounded-2xl border border-white/10 bg-black/20 p-3 text-xs text-white/40">
+            <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-[#00C853]" />
+            Bids sit in escrow until the founder accepts a term sheet. Atomic settlement, no backroom deals.
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

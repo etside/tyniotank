@@ -32,6 +32,26 @@ export interface Bid {
   mine?: boolean;
 }
 
+export interface ChatMsg {
+  id: string;
+  pitchId: string;
+  who: string;
+  msg: string;
+  at: number;
+  mine?: boolean;
+}
+
+export interface Poll {
+  id: string;
+  pitchId: string;
+  question: string;
+  options: string[];
+  votes: { voter: string; option: string; at: number }[];
+  open: boolean;
+  createdBy: string;
+  createdAt: number;
+}
+
 export interface Session {
   role: "investor" | "founder";
   name: string;
@@ -55,7 +75,7 @@ const rivalNames = ["Shark Capital", "Blue Harbor", "Vertex Ventures", "Northwin
 
 /* ───────────────────────── scoring (algorithm, not amount) ───────────────────────── */
 
-export function bidScore(b: Pick<Bid, "amount" | "equity" | "valueAdd">, w: Pitch["ruleWeights"], ask: number) {
+export function bidScore(b: Pick<Bid, "amount" | "equity" | "valueAdd" | "submittedAt">, w: Pitch["ruleWeights"], ask: number) {
   const capital = Math.min(1, b.amount / (ask * 1.5)) * w.capital;
   const equity = (1 - Math.min(1, b.equity / 25)) * w.equity;
   const va = b.valueAdd.trim().length === 0 ? 0 : Math.min(1, b.valueAdd.trim().length / 60) * w.valueAdd;
@@ -69,12 +89,20 @@ interface SharkState {
   session: Session;
   pitches: Pitch[];
   bids: Bid[];
+  chat: Record<string, ChatMsg[]>;
+  polls: Poll[];
   connected: boolean;
   resultModal: { pitchId: string; winner: Bid } | null;
   setRole: (r: Session["role"]) => void;
+  setName: (n: string) => void;
   setKyc: (k: Session["kyc"]) => void;
   deposit: (cat: Category, amt: number) => void;
-  submitBid: (pitchId: string, amount: number, equity: number, valueAdd: string) => { ok: boolean; reason?: string };
+  submitBid: (pitchId: string, amount: number, equity: number, valueAdd: string) => { ok: boolean; reason?: string; bid?: Bid };
+  ingestBid: (bid: Bid) => void; // cross-tab live append
+  addChat: (m: ChatMsg) => void;
+  createPoll: (poll: Poll) => void;
+  votePoll: (pollId: string, option: string, voter: string) => void;
+  closePoll: (pollId: string) => void;
   tick: () => void;
   setConnected: (c: boolean) => void;
   recover: () => void; // on reconnect: refetch snapshot
@@ -84,7 +112,16 @@ interface SharkState {
 }
 
 export const useShark = create<SharkState>((set, get) => ({
-  session: { role: "investor", name: "You", kyc: "verified", deposit: 2500, holds: 500, categories: ["AI SaaS", "FinTech"] },
+  session: { role: "investor", name: "You", kyc: "none", deposit: 0, holds: 0, categories: [] },
+  chat: {
+    p1: [
+      { id: "c1", pitchId: "p1", who: "Moderator", msg: "Q&A open. Keep questions on-topic; bids are final once submitted.", at: Date.now() - 600000 },
+      { id: "c2", pitchId: "p1", who: "Blue Harbor", msg: "What's your gross retention on the enterprise tier?", at: Date.now() - 420000 },
+    ],
+  },
+  polls: [
+    { id: "pl1", pitchId: "p1", question: "Would you lead this round?", options: ["Yes — leading", "Following only", "Watching"], votes: [{ voter: "Blue Harbor", option: "Yes — leading", at: Date.now() - 300000 }, { voter: "Shark Capital", option: "Following only", at: Date.now() - 240000 }], open: true, createdBy: "Moderator", createdAt: Date.now() - 900000 },
+  ],
   pitches: seedPitches,
   bids: [
     { id: "b1", pitchId: "p1", investor: "Shark Capital", amount: 520000, equity: 9, valueAdd: "Enterprise distribution across 400 accounts", score: 0, submittedAt: Date.now() - 400000 },
@@ -95,6 +132,7 @@ export const useShark = create<SharkState>((set, get) => ({
   resultModal: null,
 
   setRole: (role) => set((s) => ({ session: { ...s.session, role } })),
+  setName: (name) => set((s) => ({ session: { ...s.session, name: name || "You" } })),
   setKyc: (kyc) => set((s) => ({ session: { ...s.session, kyc } })),
   deposit: (cat, amt) =>
     set((s) => ({
@@ -116,8 +154,30 @@ export const useShark = create<SharkState>((set, get) => ({
     if (s.bids.some((b) => b.mine && b.pitchId === pitchId)) return { ok: false, reason: "Bids are locked once submitted — one per investor." };
     const bid: Bid = { id: `b${Date.now()}`, pitchId, investor: s.session.name, amount, equity, valueAdd, score: 0, submittedAt: Date.now(), mine: true };
     set({ bids: [...s.bids, bid] });
-    return { ok: true };
+    return { ok: true, bid };
   },
+
+  // cross-tab ingest from BroadcastChannel — dedupe by id
+  ingestBid: (bid) =>
+    set((s) => (s.bids.some((b) => b.id === bid.id) ? s : { bids: [...s.bids, { ...bid, mine: false }] })),
+
+  addChat: (m) =>
+    set((s) => ({ chat: { ...s.chat, [m.pitchId]: [...(s.chat[m.pitchId] ?? []), m] } })),
+
+  createPoll: (poll) =>
+    set((s) => (s.polls.some((p) => p.id === poll.id) ? s : { polls: [...s.polls, poll] })),
+
+  votePoll: (pollId, option, voter) =>
+    set((s) => ({
+      polls: s.polls.map((p) =>
+        p.id === pollId && p.open && !p.votes.some((v) => v.voter === voter)
+          ? { ...p, votes: [...p.votes, { voter, option, at: Date.now() }] }
+          : p
+      ),
+    })),
+
+  closePoll: (pollId) =>
+    set((s) => ({ polls: s.polls.map((p) => (p.id === pollId ? { ...p, open: false } : p)) })),
 
   tick: () => {
     const s = get();

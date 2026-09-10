@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
+import { BadgeCheck, ShieldAlert, ShieldCheck } from "lucide-react";
 import { useShark, fmt$, bidScore } from "./store";
 
 export default function Investor() {
@@ -19,6 +20,16 @@ export default function Investor() {
     <div className="space-y-8">
       <div><h1 className="text-2xl font-extrabold tracking-tight">Investor Dashboard</h1><p className="mt-1 text-sm text-white/50">Escrow, active bids, and won-deal pipeline.</p></div>
 
+      {session.kyc !== "verified" && (
+        <Link to="/shark/verify" className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-[#FFB300]/30 bg-[#FFB300]/[0.06] p-4 transition-colors hover:border-[#FFB300]/60">
+          <span className="flex items-center gap-3 text-sm">
+            <ShieldAlert className="h-5 w-5 shrink-0 text-[#FFB300]" />
+            <span><b>{session.kyc === "pending" ? "Verification under review" : "Identity not verified"}</b><span className="block text-xs text-white/50">Verification unlocks deposits and bidding.</span></span>
+          </span>
+          <span className="rounded-full bg-[#FFB300] px-4 py-1.5 text-xs font-black text-black">KYC Center →</span>
+        </Link>
+      )}
+
       <div className="grid gap-4 sm:grid-cols-3">
         {[["Escrow balance", fmt$(session.deposit), "text-[#00C853]"], ["Pending holds", fmt$(session.holds), "text-[#FFB300]"], ["Refundable", fmt$(session.deposit - session.holds), "text-[#0EA5E9]"]].map(([k, v, c]) => (
           <div key={k as string} className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
@@ -29,7 +40,11 @@ export default function Investor() {
       </div>
 
       <div className="rounded-2xl border border-white/10 bg-white/[0.04]">
-        <p className="border-b border-white/10 px-5 py-3 text-xs font-bold uppercase tracking-widest text-white/40">Active bids</p>
+        <p className="flex items-center gap-2 border-b border-white/10 px-5 py-3 text-xs font-bold uppercase tracking-widest text-white/40">
+          Active bids
+          {session.kyc === "verified" && <span className="ml-auto flex items-center gap-1 normal-case tracking-normal text-[#00C853]"><BadgeCheck className="h-3.5 w-3.5" /> verified investor</span>}
+          {session.kyc === "pending" && <span className="ml-auto flex items-center gap-1 normal-case tracking-normal text-[#FFB300]"><ShieldCheck className="h-3.5 w-3.5" /> verification pending</span>}
+        </p>
         {rows.length ? rows.map(({ b, p, status }) => (
           <div key={b.id} className="flex items-center gap-3 border-b border-white/5 px-5 py-3 text-sm">
             <span className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[#3B4EFA] to-[#0EA5E9] text-xs font-black">{p.logoLetter}</span>

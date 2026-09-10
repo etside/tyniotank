@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import { NavLink, Outlet } from "react-router-dom";
-import { Radio, LayoutDashboard, Briefcase, Wallet, Scale, Wifi, WifiOff, Handshake, ShieldCheck } from "lucide-react";
+import { Radio, LayoutDashboard, Briefcase, Wallet, Scale, Wifi, WifiOff, Handshake, ShieldCheck, UserCheck } from "lucide-react";
 import { useShark } from "./store";
+import { reconcileSession } from "./access";
+import { initLive } from "./realtime";
 
 const NodeLogo = ({ className = "w-6 h-6" }: { className?: string }) => (
   <svg viewBox="0 0 26 26" fill="none" className={className} aria-hidden="true">
@@ -26,6 +28,7 @@ const founderLinks = [
 ];
 
 const commonLinks = [
+  { to: "/shark/verify", label: "KYC Center", icon: UserCheck },
   { to: "/shark/legal", label: "Legal", icon: Scale },
   { to: "/shark/admin", label: "Admin", icon: ShieldCheck },
 ];
@@ -33,9 +36,17 @@ const commonLinks = [
 export default function SharkLayout() {
   const tick = useShark((s) => s.tick);
   const role = useShark((s) => s.session.role);
+  const kyc = useShark((s) => s.session.kyc);
+  const name = useShark((s) => s.session.name);
   const connected = useShark((s) => s.connected);
   const recover = useShark((s) => s.recover);
   const setConnected = useShark((s) => s.setConnected);
+
+  // live layer + persisted identity, once per mount
+  useEffect(() => {
+    initLive();
+    reconcileSession();
+  }, []);
 
   // mock WebSocket: 1s heartbeat; simulated drop/reconnect with state recovery
   useEffect(() => {
@@ -62,7 +73,12 @@ export default function SharkLayout() {
               </NavLink>
             ))}
           </nav>
-          <span className={`ml-auto flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold ${connected ? "bg-[#00C853]/15 text-[#00C853]" : "bg-[#D50000]/15 text-[#D50000]"}`}>
+          <span className={`ml-auto flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold ${
+            kyc === "verified" ? "bg-[#00C853]/15 text-[#00C853]" : kyc === "pending" ? "bg-[#FFB300]/15 text-[#FFB300]" : "bg-white/10 text-white/50"}`}>
+            {kyc === "verified" ? <ShieldCheck className="h-3 w-3" /> : <UserCheck className="h-3 w-3" />}
+            {kyc === "verified" ? name : kyc === "pending" ? "UNDER REVIEW" : "UNVERIFIED"}
+          </span>
+          <span className={`flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold ${connected ? "bg-[#00C853]/15 text-[#00C853]" : "bg-[#D50000]/15 text-[#D50000]"}`}>
             {connected ? <Wifi className="h-3 w-3" /> : <WifiOff className="h-3 w-3 animate-pulse" />}
             {connected ? "LIVE FEED" : "RECONNECTING…"}
           </span>
