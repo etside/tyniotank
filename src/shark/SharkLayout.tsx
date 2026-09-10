@@ -12,18 +12,27 @@ const NodeLogo = ({ className = "w-6 h-6" }: { className?: string }) => (
   </svg>
 );
 
-const links = [
+const investorLinks = [
+  { to: "/shark", label: "Lobby", icon: Radio, end: true },
+  { to: "/shark/deals", label: "Deal Flow", icon: Handshake },
+  { to: "/shark/investor", label: "Portfolio", icon: Briefcase },
+  { to: "/shark/deposit", label: "Deposit", icon: Wallet },
+];
+
+const founderLinks = [
   { to: "/shark", label: "Lobby", icon: Radio, end: true },
   { to: "/shark/deals", label: "Deal Flow", icon: Handshake },
   { to: "/shark/startup", label: "Pitch Control", icon: LayoutDashboard },
-  { to: "/shark/investor", label: "Portfolio", icon: Briefcase },
-  { to: "/shark/deposit", label: "Deposit & KYC", icon: Wallet },
+];
+
+const commonLinks = [
   { to: "/shark/legal", label: "Legal", icon: Scale },
   { to: "/shark/admin", label: "Admin", icon: ShieldCheck },
 ];
 
 export default function SharkLayout() {
   const tick = useShark((s) => s.tick);
+  const role = useShark((s) => s.session.role);
   const connected = useShark((s) => s.connected);
   const recover = useShark((s) => s.recover);
   const setConnected = useShark((s) => s.setConnected);
@@ -46,7 +55,7 @@ export default function SharkLayout() {
             <NodeLogo /> Tynio<span className="text-[#3B4EFA]">Tank</span>
           </NavLink>
           <nav className="hidden items-center gap-1 md:flex">
-            {links.map(({ to, label, icon: Icon, end }) => (
+            {(role === "investor" ? investorLinks : founderLinks).concat(commonLinks).map(({ to, label, icon: Icon, end }) => (
               <NavLink key={to} to={to} end={end}
                 className={({ isActive }) => `flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-sm transition-colors ${isActive ? "bg-[#3B4EFA] text-white" : "text-white/70 hover:bg-white/10 hover:text-white"}`}>
                 <Icon className="h-3.5 w-3.5" /> {label}
@@ -60,7 +69,7 @@ export default function SharkLayout() {
         </div>
         {/* mobile nav */}
         <nav className="flex gap-1 overflow-x-auto border-t border-white/10 px-3 py-2 md:hidden">
-          {links.map(({ to, label, end }) => (
+          {(role === "investor" ? investorLinks : founderLinks).concat(commonLinks).map(({ to, label, end }) => (
             <NavLink key={to} to={to} end={end} className={({ isActive }) => `whitespace-nowrap rounded-full px-3 py-1 text-xs ${isActive ? "bg-[#3B4EFA]" : "bg-white/5 text-white/70"}`}>{label}</NavLink>
           ))}
         </nav>

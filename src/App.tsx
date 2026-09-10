@@ -7,6 +7,7 @@ import ErrorBoundary from "@/components/ErrorBoundary";
 import SiteLayout from "./layouts/SiteLayout";
 import Home from "./pages/Home";
 import { Navigate } from "react-router-dom";
+import Landing from "./shark/Landing";
 import SharkLayout from "./shark/SharkLayout";
 import Lobby from "./shark/Lobby";
 import Room from "./shark/Room";
@@ -93,7 +94,7 @@ const App = () => (
               <Route path="admin" element={<TankAdmin />} />
             </Route>
             <Route element={<SiteLayout />}>
-              <Route path="/" element={<Navigate to="/shark" replace />} />
+              <Route path="/" element={<Landing />} />
               <Route path="/directory" element={<Home />} />
               <Route path="/listings" element={<Listings />} />
               <Route path="/business/:slug" element={<BusinessProfile />} />
