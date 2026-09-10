@@ -21,8 +21,8 @@ export default function About() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "AboutPage",
-    name: "About engineersTech",
-    description: "engineersTech is the AI-powered business directory for engineers and tech professionals in Bangladesh.",
+    name: "About Tynio AI",
+    description: "Tynio AI is the AI-powered business directory for engineers and tech professionals in Bangladesh.",
   };
 
   return (
@@ -43,7 +43,7 @@ export default function About() {
               <span className="animated-gradient-text">found by AI.</span>
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-              engineersTech was founded in 2024 by a team of software engineers frustrated with how
+              Tynio AI was founded in 2024 by a team of software engineers frustrated with how
               hard it was to find quality tech vendors in Bangladesh — and how invisible local
               firms were to AI recommendation engines. We built the fix.
             </p>

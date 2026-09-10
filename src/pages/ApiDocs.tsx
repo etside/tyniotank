@@ -70,9 +70,9 @@ export default function ApiDocs() {
   const orgJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebAPI",
-    name: "engineersTech Public API",
+    name: "Tynio AI Public API",
     description: "Read-only endpoints serving the verified business directory to humans, MCP clients, and LLMs.",
-    documentation: "https://engineerstechbd.com/api-docs",
+    documentation: "https://tynioaibd.com/api-docs",
   };
 
   return (
@@ -268,7 +268,7 @@ export default function ApiDocs() {
               <div className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">MCP Configuration</div>
               <pre className="text-xs font-mono whitespace-pre-wrap">{`{
   "mcpServers": {
-    "engineerstech": {
+    "tynioai": {
       "url": "https://[project-ref].supabase.co/functions/v1/mcp-server",
       "headers": {
         "Authorization": "Bearer YOUR_MCP_TOKEN"

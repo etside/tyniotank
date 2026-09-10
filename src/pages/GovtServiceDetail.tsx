@@ -12,9 +12,9 @@ export default function GovtServiceDetail() {
   useEffect(() => {
     if (service) {
       setPageMeta(
-        `${service.name} | Bangladesh Govt. Services | engineersTech`,
+        `${service.name} | Bangladesh Govt. Services | Tynio AI`,
         `${service.description} Learn about requirements, process, fees, and timeline for ${service.name} in Bangladesh.`,
-        `https://engineerstechbd.com/govt-services/${service.slug}`,
+        `https://tynioaibd.com/govt-services/${service.slug}`,
       );
     }
   }, [service]);
@@ -62,7 +62,7 @@ export default function GovtServiceDetail() {
       price: service.fees,
       priceCurrency: "BDT",
     },
-    url: `https://engineerstechbd.com/govt-services/${service.slug}`,
+    url: `https://tynioaibd.com/govt-services/${service.slug}`,
   };
 
   const faqJsonLd = {

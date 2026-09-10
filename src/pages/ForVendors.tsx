@@ -18,7 +18,7 @@ const plans = [
 ];
 
 const testimonials = [
-  { quote: "Within 3 months of listing on engineersTech, we started appearing in ChatGPT answers for 'Bangladesh software outsourcing'. Our inbound increased 40%.", name: "Rafiqul Hasan", title: "CEO, TechCraft BD", initials: "RH" },
+  { quote: "Within 3 months of listing on Tynio AI, we started appearing in ChatGPT answers for 'Bangladesh software outsourcing'. Our inbound increased 40%.", name: "Rafiqul Hasan", title: "CEO, TechCraft BD", initials: "RH" },
   { quote: "The GEO score dashboard is a game changer. It shows us exactly what to fix to improve our AI visibility. Incredibly actionable.", name: "Sumaiya Chowdhury", title: "Marketing Director, CodeLab BD", initials: "SC" },
 ];
 
@@ -35,7 +35,7 @@ export default function ForVendors() {
             <div className="section-eyebrow mb-6 justify-center"><Award className="w-3.5 h-3.5" /> For vendors & tech businesses</div>
             <h1 className="display-1 mb-6">Grow your tech business with <span className="animated-gradient-text">AI-powered discovery.</span></h1>
             <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-8">
-              engineersTech is the only directory that structures your profile for LLM recommendation engines. List once — get cited by ChatGPT, Claude, DeepSeek, and Qwen automatically.
+              Tynio AI is the only directory that structures your profile for LLM recommendation engines. List once — get cited by ChatGPT, Claude, DeepSeek, and Qwen automatically.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link to="/auth?mode=signup" className="btn-gradient shimmer-btn text-base px-7 py-3.5">List your business <ArrowRight className="w-4 h-4" /></Link>

@@ -9,25 +9,17 @@ import { useAuth } from "@/lib/use-auth";
 // ─── 8-bladed glowing violet star icon ──────────────────────────────────────
 function VioletStar({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" className={className} aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 26 26" fill="none" className={className} aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="starGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#D946EF" />
-          <stop offset="100%" stopColor="#A855F7" />
+          <stop offset="0%" stopColor="#0EA5E9" />
+          <stop offset="100%" stopColor="#3B4EFA" />
         </linearGradient>
       </defs>
-      <path
-        d="M12 2L14.09 8.26L20.18 8.63L15.54 12.74L17.12 19.02L12 15.77L6.88 19.02L8.46 12.74L3.82 8.63L9.91 8.26L12 2Z"
-        fill="url(#starGrad)"
-        opacity="0.9"
-      />
-      <path
-        d="M12 2L14.09 8.26L20.18 8.63L15.54 12.74L17.12 19.02L12 15.77L6.88 19.02L8.46 12.74L3.82 8.63L9.91 8.26L12 2Z"
-        stroke="#D946EF"
-        strokeWidth="0.5"
-        strokeOpacity="0.4"
-        fill="none"
-      />
+      <circle cx="13" cy="5" r="3.4" fill="url(#starGrad)" />
+      <circle cx="5.5" cy="19" r="3.4" fill="url(#starGrad)" />
+      <circle cx="20.5" cy="19" r="3.4" fill="#0EA5E9" />
+      <path d="M13 8.5L6 16M13 8.5l7 7.5M8.5 19h9" stroke="url(#starGrad)" strokeWidth="1.7" strokeLinecap="round" />
     </svg>
   );
 }
@@ -149,10 +141,10 @@ export default function Navbar() {
 
             {/* ── Logo ── */}
             <Link to="/" className="flex items-center gap-2 group shrink-0">
-              <VioletStar className="w-7 h-7 drop-shadow-[0_0_8px_rgba(217,70,239,0.5)] group-hover:scale-110 transition-transform duration-200" />
+              <VioletStar className="w-7 h-7 drop-shadow-[0_0_8px_rgba(59,78,250,0.5)] group-hover:scale-110 transition-transform duration-200" />
               <span className="font-display font-extrabold text-[15px] tracking-tight leading-none">
-                <span className="text-foreground">engineers</span>
-                <span className="gradient-text">Tech</span>
+                <span className="text-foreground">Tynio</span>
+                <span className="gradient-text">AI</span>
               </span>
             </Link>
 

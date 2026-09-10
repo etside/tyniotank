@@ -102,9 +102,9 @@ export default function GovtServices() {
 
   useEffect(() => {
     setPageMeta(
-      "Bangladesh Government Services | engineersTech",
+      "Bangladesh Government Services | Tynio AI",
       "Complete guide to Bangladesh government legal services — nationality, business registration, personal certificates, birth certificate registration and more.",
-      "https://engineerstechbd.com/govt-services",
+      "https://tynioaibd.com/govt-services",
     );
   }, []);
 

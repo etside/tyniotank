@@ -89,7 +89,7 @@ export default function Products() {
   });
 
   useEffect(() => {
-    setPageMeta("Products | EngineersTech Marketplace", "Browse products from verified vendors on EngineersTech");
+    setPageMeta("Products | Tynio AI Marketplace", "Browse products from verified vendors on Tynio AI");
   }, []);
 
   const products = data?.data ?? [];

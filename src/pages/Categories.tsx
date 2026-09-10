@@ -31,9 +31,9 @@ export default function Categories() {
 
   useEffect(() => {
     setPageMeta(
-      'Business Categories — engineersTech',
-      'Browse all business categories on engineersTech. Find software, healthcare, finance, marketing agencies and more.',
-      'https://engineerstechbd.com/categories',
+      'Business Categories — Tynio AI',
+      'Browse all business categories on Tynio AI. Find software, healthcare, finance, marketing agencies and more.',
+      'https://tynioaibd.com/categories',
     );
   }, []);
 

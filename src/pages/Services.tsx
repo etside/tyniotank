@@ -16,9 +16,9 @@ const services = [
 export default function Services() {
   useEffect(() => {
     setPageMeta(
-      'Services — engineersTech',
+      'Services — Tynio AI',
       'AI recommendation chatbot, GEO optimization, LLM analytics, review collection, and more.',
-      'https://engineerstechbd.com/services',
+      'https://tynioaibd.com/services',
     );
   }, []);
 

@@ -95,9 +95,9 @@ export default function AirTickets() {
 
   useEffect(() => {
     setPageMeta(
-      "Air Ticket Services — Flight Booking & Travel Support | engineersTech",
+      "Air Ticket Services — Flight Booking & Travel Support | Tynio AI",
       "Book domestic and international flights, get rescheduling help, baggage claims, travel insurance, and more — all in one place.",
-      "https://engineerstechbd.com/air-tickets",
+      "https://tynioaibd.com/air-tickets",
     );
   }, []);
 

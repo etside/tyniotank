@@ -211,7 +211,7 @@ export default function HomepageEditor() {
               onChange={(v) => updateSection("communitySection.eyebrow", v)} />
             <HField label="Headline"      value={(content as any).communitySection?.title ?? "A community that adds value"}
               onChange={(v) => updateSection("communitySection.title", v)} />
-            <HTextarea label="Subtitle"   value={(content as any).communitySection?.subtitle ?? "Join engineersTech members discussing industry trends."}
+            <HTextarea label="Subtitle"   value={(content as any).communitySection?.subtitle ?? "Join Tynio AI members discussing industry trends."}
               onChange={(v) => updateSection("communitySection.subtitle", v)} />
           </div>
           <div className="border border-border rounded-xl p-4 space-y-3">
@@ -220,7 +220,7 @@ export default function HomepageEditor() {
               onChange={(v) => updateSection("communitySection.discordTitle", v)} />
             <HTextarea label="Body text" value={(content as any).communitySection?.discordBody ?? "Real-time discussion with engineers worldwide."}
               onChange={(v) => updateSection("communitySection.discordBody", v)} />
-            <HField label="Discord invite URL" value={(content as any).communitySection?.discordUrl ?? "https://discord.gg/engineerstech"}
+            <HField label="Discord invite URL" value={(content as any).communitySection?.discordUrl ?? "https://discord.gg/tynioai"}
               onChange={(v) => updateSection("communitySection.discordUrl", v)} />
           </div>
           <div className="border border-border rounded-xl p-4 space-y-3">
@@ -229,7 +229,7 @@ export default function HomepageEditor() {
               onChange={(v) => updateSection("communitySection.youtubeTitle", v)} />
             <HTextarea label="Body text" value={(content as any).communitySection?.youtubeBody ?? "Subscribe to vendor spotlights and GEO tutorials."}
               onChange={(v) => updateSection("communitySection.youtubeBody", v)} />
-            <HField label="YouTube channel URL" value={(content as any).communitySection?.youtubeUrl ?? "https://youtube.com/@engineerstech"}
+            <HField label="YouTube channel URL" value={(content as any).communitySection?.youtubeUrl ?? "https://youtube.com/@tynioai"}
               onChange={(v) => updateSection("communitySection.youtubeUrl", v)} />
           </div>
         </div>
@@ -242,7 +242,7 @@ export default function HomepageEditor() {
           <p className="text-xs text-muted-foreground">"Powered by a global team" section stats.</p>
           <HField label="Headline"  value={(content as any).globalTeamSection?.title ?? "Powered by a global team"}
             onChange={(v) => updateSection("globalTeamSection.title", v)} />
-          <HTextarea label="Subtitle" value={(content as any).globalTeamSection?.subtitle ?? "Dozens of engineers across multiple hubs, focused on one thing: engineersTech users."}
+          <HTextarea label="Subtitle" value={(content as any).globalTeamSection?.subtitle ?? "Dozens of engineers across multiple hubs, focused on one thing: Tynio AI users."}
             onChange={(v) => updateSection("globalTeamSection.subtitle", v)} />
           {[
             { key: "teamMembers",   label: "Team members count" },

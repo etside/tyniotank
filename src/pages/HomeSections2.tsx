@@ -191,7 +191,7 @@ export function CommunitySection() {
           A community that <span className="gradient-text">adds value</span>
         </h2>
         <p className="text-muted-foreground text-lg mt-4 leading-relaxed">
-          Join engineersTech members discussing markets, reviewing tech vendors, and learning from
+          Join Tynio AI members discussing markets, reviewing tech vendors, and learning from
           real engineering experience every day
         </p>
       </div>
@@ -199,7 +199,7 @@ export function CommunitySection() {
       <div className="grid md:grid-cols-2 gap-5">
         {/* Discord card */}
         <Reveal className="glass-card card-lift relative overflow-hidden group hover:border-[#5865F2]/40">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#5865F2]/10 via-transparent to-purple-900/10 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#5865F2]/10 via-transparent to-indigo-950/10 pointer-events-none" />
           <div className="h-40 bg-gradient-to-br from-[#5865F2]/20 to-[#23272A]/60 flex items-center justify-center border-b border-border/40 relative overflow-hidden">
             <div className="absolute inset-0 flex items-center justify-center opacity-20">
               <div className="grid grid-cols-3 gap-2 p-4">
@@ -242,10 +242,10 @@ export function CommunitySection() {
             </div>
 
             <div className="flex gap-2">
-              <a href="https://discord.gg/engineerstech" target="_blank" rel="noopener noreferrer" className="btn-ghost text-xs py-2 px-4 flex-1 justify-center">
+              <a href="https://discord.gg/tynioai" target="_blank" rel="noopener noreferrer" className="btn-ghost text-xs py-2 px-4 flex-1 justify-center">
                 Main Server
               </a>
-              <a href="https://discord.gg/engineerstech" target="_blank" rel="noopener noreferrer" className="btn-ghost text-xs py-2 px-4 flex-1 justify-center">
+              <a href="https://discord.gg/tynioai" target="_blank" rel="noopener noreferrer" className="btn-ghost text-xs py-2 px-4 flex-1 justify-center">
                 Dev Server
               </a>
             </div>
@@ -271,7 +271,7 @@ export function CommunitySection() {
             <h3 className="font-display font-bold text-xl mb-2">YouTube community</h3>
             <p className="text-muted-foreground text-sm leading-relaxed mb-5">
               Subscribe to vendor spotlights, GEO tutorials, and real case studies. New content
-              every week on the engineersTech YouTube channel.
+              every week on the Tynio AI YouTube channel.
             </p>
 
             <div className="flex items-center gap-4 mb-6">
@@ -296,10 +296,10 @@ export function CommunitySection() {
             </div>
 
             <div className="flex gap-2">
-              <a href="https://youtube.com/@engineerstech" target="_blank" rel="noopener noreferrer" className="btn-ghost text-xs py-2 px-4 flex-1 justify-center">
+              <a href="https://youtube.com/@tynioai" target="_blank" rel="noopener noreferrer" className="btn-ghost text-xs py-2 px-4 flex-1 justify-center">
                 Subscribe
               </a>
-              <a href="https://youtube.com/@engineerstech" target="_blank" rel="noopener noreferrer" className="btn-ghost text-xs py-2 px-4 flex-1 justify-center">
+              <a href="https://youtube.com/@tynioai" target="_blank" rel="noopener noreferrer" className="btn-ghost text-xs py-2 px-4 flex-1 justify-center">
                 Watch Now
               </a>
             </div>

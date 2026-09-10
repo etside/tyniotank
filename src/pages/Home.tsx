@@ -46,7 +46,7 @@ function GlobalTeamSection() {
             </h2>
             <p className="text-muted-foreground text-base max-w-xl mt-3 leading-relaxed">
               Dozens of engineers, designers, and community managers — across multiple hubs —
-              focused on one thing: engineersTech users.
+              focused on one thing: Tynio AI users.
             </p>
           </div>
           <Link to="/about" className="btn-ghost text-sm shrink-0 self-start md:self-auto">
@@ -139,7 +139,7 @@ function SupportSection() {
             <div className="rounded-2xl bg-gradient-to-br from-primary/10 to-card border border-border/50 h-40 flex items-center justify-center overflow-hidden">
               <div className="text-center">
                 <div className="text-4xl mb-2">🎧</div>
-                <p className="text-sm text-muted-foreground font-semibold">engineersTech support team</p>
+                <p className="text-sm text-muted-foreground font-semibold">Tynio AI support team</p>
               </div>
             </div>
 
@@ -186,7 +186,7 @@ function CtaSection() {
         <div className="relative px-8 py-20 md:py-24">
           <h2 className="display-2 text-white mb-4">
             Start selling on
-            <span className="block text-primary-light">engineersTech today</span>
+            <span className="block text-primary-light">Tynio AI today</span>
           </h2>
           <p className="text-white/70 text-lg max-w-2xl mx-auto mb-10 leading-relaxed">
             Join hundreds of verified vendors selling tech products and services.
@@ -241,9 +241,9 @@ export default function Home() {
 
   useEffect(() => {
     setPageMeta(
-      'engineersTech — AI-Powered Business Directory',
+      'Tynio AI — AI-Powered Business Directory',
       'Discover top businesses ranked by AI. The Clutch alternative built for the AI era — find verified agencies, tech companies and service providers.',
-      'https://engineerstechbd.com/',
+      'https://tynioaibd.com/',
     );
   }, []);
 
@@ -259,13 +259,13 @@ export default function Home() {
   const orgJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "engineersTech",
-    url: "https://engineerstechbd.com",
+    name: "Tynio AI",
+    url: "https://tynioaibd.com",
     description:
       "AI-powered business directory for engineers & tech professionals. GEO-optimized for LLM discovery.",
     sameAs: [
-      "https://twitter.com/engineerstech",
-      "https://linkedin.com/company/engineerstech",
+      "https://twitter.com/tynioai",
+      "https://linkedin.com/company/tynioai",
     ],
   };
 

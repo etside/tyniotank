@@ -18,7 +18,7 @@ export interface BrandSettings {
 }
 
 export const defaultBrand: BrandSettings = {
-  siteName: "engineersTech",
+  siteName: "Tynio AI",
   tagline: "AI Discovery",
   description: "The business directory built for the LLM era. Get discovered by AI, not just search.",
   logo_url: null,
@@ -27,8 +27,8 @@ export const defaultBrand: BrandSettings = {
   primary_color: "#D946EF",
   font_display: "Plus Jakarta Sans",
   font_body: "Inter",
-  twitter_handle: "@engineerstech",
-  company_url: "https://engineerstechbd.com",
+  twitter_handle: "@tynioai",
+  company_url: "https://tynioaibd.com",
 };
 
 const COLOR_PRESETS = [

@@ -138,7 +138,7 @@ function useConnectionCards(mcpUrl: string, cfg: McpConfig | null) {
         snippet: JSON.stringify(
           {
             mcpServers: {
-              "engineerstech": {
+              "tynioai": {
                 type: "http",
                 url: mcpUrl,
                 headers: { Authorization: `Bearer ${token}` },
@@ -169,7 +169,7 @@ function useConnectionCards(mcpUrl: string, cfg: McpConfig | null) {
         snippet: JSON.stringify(
           {
             servers: {
-              "engineerstech": {
+              "tynioai": {
                 type: "http",
                 url: mcpUrl,
                 headers: { Authorization: `Bearer ${token}` },
@@ -185,9 +185,9 @@ function useConnectionCards(mcpUrl: string, cfg: McpConfig | null) {
       {
         id: "cursor",
         label: "Cursor / Windsurf",
-        icon: <Zap className="size-5 text-violet-400" />,
+        icon: <Zap className="size-5 text-sky-400" />,
         badge: "Bearer Token",
-        color: "border-violet-500/30",
+        color: "border-blue-600/30",
         description:
           "Cursor 0.45+ and Windsurf both use the same JSON config format. " +
           "Only the file path differs.",
@@ -200,7 +200,7 @@ function useConnectionCards(mcpUrl: string, cfg: McpConfig | null) {
         snippet: JSON.stringify(
           {
             mcpServers: {
-              "engineerstech": {
+              "tynioai": {
                 url: mcpUrl,
                 headers: { Authorization: `Bearer ${token}` },
               },
@@ -836,7 +836,7 @@ function TabAiListings() {
 
   const tierColor = (tier: string) => ({
     enterprise: "bg-yellow-500/15 text-yellow-400 border-yellow-500/30",
-    featured:   "bg-purple-500/15 text-purple-400 border-purple-500/30",
+    featured:   "bg-blue-500/15 text-sky-300 border-blue-500/30",
     pro:        "bg-blue-500/15 text-blue-400 border-blue-500/30",
     free:       "bg-muted text-muted-foreground",
   }[tier] ?? "bg-muted text-muted-foreground");
@@ -849,7 +849,7 @@ function TabAiListings() {
           { label: "Total businesses", value: counts.total, color: "" },
           { label: "AI listing ON",    value: counts.enabled, color: "text-green-400" },
           { label: "Paid (auto)",      value: counts.paid,   color: "text-blue-400" },
-          { label: "Admin promoted",   value: counts.admin,  color: "text-violet-400" },
+          { label: "Admin promoted",   value: counts.admin,  color: "text-sky-400" },
         ].map((s) => (
           <Card key={s.label}>
             <CardContent className="p-4">
@@ -912,7 +912,7 @@ function TabAiListings() {
                   <span className={`text-[10px] px-1.5 py-0.5 rounded border ${
                     b.ai_listing_source === "paid"
                       ? "bg-blue-500/15 text-blue-400 border-blue-500/30"
-                      : "bg-violet-500/15 text-violet-400 border-violet-500/30"
+                      : "bg-blue-600/15 text-sky-400 border-blue-600/30"
                   }`}>
                     {b.ai_listing_source === "paid" ? "paid" : "admin"}
                   </span>
@@ -1075,7 +1075,7 @@ export default function AdminMCP() {
             <p className="text-sm text-muted-foreground">No MCP config found. Initialize it:</p>
             <Button onClick={async () => {
               await adminApi.updateMcp({
-                server_name: "engineersTech MCP",
+                server_name: "Tynio AI MCP",
                 api_token: randomToken(),
                 enabled: true,
                 allow_write: false,

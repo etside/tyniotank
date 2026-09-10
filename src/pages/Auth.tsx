@@ -15,9 +15,9 @@ export default function Auth() {
 
   useEffect(() => {
     setPageMeta(
-      'Sign In — engineersTech',
-      'Sign in or create your engineersTech account to manage your business listing.',
-      'https://engineerstechbd.com/auth',
+      'Sign In — Tynio AI',
+      'Sign in or create your Tynio AI account to manage your business listing.',
+      'https://tynioaibd.com/auth',
     );
   }, []);
 
@@ -28,7 +28,7 @@ export default function Auth() {
       if (mode === "signup") {
         const { token } = await authApi.register(email, password);
         setAuthToken(token);
-        toast.success("Account created. Welcome to engineersTech!");
+        toast.success("Account created. Welcome to Tynio AI!");
         navigate("/");
       } else {
         const { token } = await authApi.login(email, password);
@@ -84,7 +84,7 @@ export default function Auth() {
           </form>
 
           <div className="mt-5 text-center text-sm text-muted-foreground">
-            {mode === "signup" ? "Already have an account?" : "New to engineersTech?"}{" "}
+            {mode === "signup" ? "Already have an account?" : "New to Tynio AI?"}{" "}
             <button onClick={() => setMode(mode === "signup" ? "signin" : "signup")} className="text-primary-light hover:underline font-medium">
               {mode === "signup" ? "Sign in" : "Create one"}
             </button>

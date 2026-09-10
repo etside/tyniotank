@@ -6,6 +6,16 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import SiteLayout from "./layouts/SiteLayout";
 import Home from "./pages/Home";
+import { Navigate } from "react-router-dom";
+import SharkLayout from "./shark/SharkLayout";
+import Lobby from "./shark/Lobby";
+import Room from "./shark/Room";
+import Startup from "./shark/Startup";
+import Investor from "./shark/Investor";
+import Deposit from "./shark/Deposit";
+import Legal from "./shark/Legal";
+import Deals from "./shark/Deals";
+import TankAdmin from "./shark/TankAdmin";
 import Listings from "./pages/Listings";
 import BusinessProfile from "./pages/BusinessProfile";
 import About from "./pages/About";
@@ -70,8 +80,19 @@ const App = () => (
           <Routes>
             {/* OAuth consent — standalone page, no site nav/footer */}
             <Route path="/oauth/consent" element={<OAuthConsent />} />
+            <Route path="/shark" element={<SharkLayout />}>
+              <Route index element={<Lobby />} />
+              <Route path="room/:id" element={<Room />} />
+              <Route path="startup" element={<Startup />} />
+              <Route path="investor" element={<Investor />} />
+              <Route path="deposit" element={<Deposit />} />
+              <Route path="legal" element={<Legal />} />
+              <Route path="deals" element={<Deals />} />
+              <Route path="admin" element={<TankAdmin />} />
+            </Route>
             <Route element={<SiteLayout />}>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<Navigate to="/shark" replace />} />
+              <Route path="/directory" element={<Home />} />
               <Route path="/listings" element={<Listings />} />
               <Route path="/business/:slug" element={<BusinessProfile />} />
               <Route path="/about" element={<About />} />

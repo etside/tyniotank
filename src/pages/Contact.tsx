@@ -9,9 +9,9 @@ export default function Contact() {
 
   useEffect(() => {
     setPageMeta(
-      'Contact Us — engineersTech',
-      'Get in touch with the engineersTech team.',
-      'https://engineerstechbd.com/contact',
+      'Contact Us — Tynio AI',
+      'Get in touch with the Tynio AI team.',
+      'https://tynioaibd.com/contact',
     );
   }, []);
   return (
@@ -76,7 +76,7 @@ export default function Contact() {
           <div className="glass-card p-6">
             <Mail className="w-5 h-5 text-primary-light mb-3" />
             <div className="text-xs uppercase tracking-wider text-muted-foreground mb-1">Email</div>
-            <a href="mailto:hello@engineerstechbd.com" className="text-sm hover:text-primary-light">hello@engineerstechbd.com</a>
+            <a href="mailto:hello@tynioaibd.com" className="text-sm hover:text-primary-light">hello@tynioaibd.com</a>
           </div>
           <div className="glass-card p-6">
             <MapPin className="w-5 h-5 text-primary-light mb-3" />

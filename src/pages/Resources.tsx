@@ -13,9 +13,9 @@ const items = [
 export default function Resources() {
   useEffect(() => {
     setPageMeta(
-      'Resources — engineersTech',
+      'Resources — Tynio AI',
       'Guides, playbooks, and APIs for buyers, vendors, and builders.',
-      'https://engineerstechbd.com/resources',
+      'https://tynioaibd.com/resources',
     );
   }, []);
 

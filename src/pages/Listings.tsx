@@ -39,9 +39,9 @@ export default function Listings() {
 
   useEffect(() => {
     setPageMeta(
-      'Browse Business Listings — engineersTech',
+      'Browse Business Listings — Tynio AI',
       'Search and filter thousands of verified business listings. Find agencies, software companies and service providers ranked by AI score and reviews.',
-      'https://engineerstechbd.com/listings',
+      'https://tynioaibd.com/listings',
     );
   }, []);
 
@@ -96,7 +96,7 @@ export default function Listings() {
         "@type": "LocalBusiness",
         name: b.name,
         description: b.tagline,
-        url: `https://engineerstechbd.com/business/${b.slug}`,
+        url: `https://tynioaibd.com/business/${b.slug}`,
         aggregateRating: { "@type": "AggregateRating", ratingValue: b.rating, reviewCount: b.review_count },
       },
     })),

@@ -20,9 +20,9 @@ export default function Leaderboards() {
 
   useEffect(() => {
     setPageMeta(
-      'Leaderboards — engineersTech',
+      'Leaderboards — Tynio AI',
       'Top vendors ranked by GEO score, rating, and review count. See who leads in AI discovery.',
-      'https://engineerstechbd.com/leaderboards',
+      'https://tynioaibd.com/leaderboards',
     );
   }, []);
 

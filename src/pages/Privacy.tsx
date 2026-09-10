@@ -4,9 +4,9 @@ import { setPageMeta } from "@/lib/seo";
 export default function Privacy() {
   useEffect(() => {
     setPageMeta(
-      "Privacy Policy — engineersTech",
-      "Read the engineersTech Privacy Policy. Learn how we collect, use, and protect your personal information.",
-      "https://engineerstechbd.com/privacy",
+      "Privacy Policy — Tynio AI",
+      "Read the Tynio AI Privacy Policy. Learn how we collect, use, and protect your personal information.",
+      "https://tynioaibd.com/privacy",
     );
   }, []);
 
@@ -69,7 +69,7 @@ export default function Privacy() {
           <ul className="list-disc list-inside mt-3 space-y-1.5">
             <li><strong className="text-foreground">Public listing data:</strong> information you publish in your business listing (name, description, services, location, contact details, reviews) is publicly visible and indexed by search engines and LLMs.</li>
             <li><strong className="text-foreground">Service providers:</strong> we share data with trusted vendors who help us operate the Service, including cloud hosting (Supabase / AWS), payment processors (SSLCommerz, Stripe), email delivery (Resend), and analytics tools. These providers are contractually bound to use your data only as instructed by us.</li>
-            <li><strong className="text-foreground">Legal requirements:</strong> we may disclose your information if required by law, court order, or governmental authority, or if we believe disclosure is necessary to protect the rights, property, or safety of engineersTech, our users, or the public.</li>
+            <li><strong className="text-foreground">Legal requirements:</strong> we may disclose your information if required by law, court order, or governmental authority, or if we believe disclosure is necessary to protect the rights, property, or safety of Tynio AI, our users, or the public.</li>
             <li><strong className="text-foreground">Business transfers:</strong> in the event of a merger, acquisition, or sale of assets, your information may be transferred to the successor entity, subject to equivalent privacy protections.</li>
             <li><strong className="text-foreground">With your consent:</strong> we may share your information for any other purpose with your explicit consent.</li>
           </ul>
@@ -107,7 +107,7 @@ export default function Privacy() {
           <p>
             Depending on your location, you may have the following rights regarding your personal information.
             To exercise any of these rights, contact us at{" "}
-            <a href="mailto:privacy@engineerstechbd.com" className="text-primary-light hover:underline">privacy@engineerstechbd.com</a>.
+            <a href="mailto:privacy@tynioaibd.com" className="text-primary-light hover:underline">privacy@tynioaibd.com</a>.
           </p>
 
           <h3 className="text-foreground font-semibold text-lg mt-5 mb-2">For users in the European Economic Area (GDPR)</h3>
@@ -151,7 +151,7 @@ export default function Privacy() {
           <p className="mt-3">
             No security system is impenetrable. We cannot guarantee the absolute security of your information.
             If you believe your account has been compromised, contact us immediately at{" "}
-            <a href="mailto:security@engineerstechbd.com" className="text-primary-light hover:underline">security@engineerstechbd.com</a>.
+            <a href="mailto:security@tynioaibd.com" className="text-primary-light hover:underline">security@tynioaibd.com</a>.
           </p>
         </div>
 
@@ -164,7 +164,7 @@ export default function Privacy() {
             personal information from a child under the applicable minimum age, we will take steps to delete that
             information promptly. If you believe a child has provided us with their personal information, please
             contact us at{" "}
-            <a href="mailto:privacy@engineerstechbd.com" className="text-primary-light hover:underline">privacy@engineerstechbd.com</a>.
+            <a href="mailto:privacy@tynioaibd.com" className="text-primary-light hover:underline">privacy@tynioaibd.com</a>.
           </p>
         </div>
 
@@ -187,9 +187,9 @@ export default function Privacy() {
             please contact our Privacy team:
           </p>
           <address className="not-italic mt-3 space-y-1">
-            <div className="font-semibold text-foreground">engineersTech — Privacy Team</div>
-            <div>Email: <a href="mailto:privacy@engineerstechbd.com" className="text-primary-light hover:underline">privacy@engineerstechbd.com</a></div>
-            <div>Contact form: <a href="/contact" className="text-primary-light hover:underline">engineerstechbd.com/contact</a></div>
+            <div className="font-semibold text-foreground">Tynio AI — Privacy Team</div>
+            <div>Email: <a href="mailto:privacy@tynioaibd.com" className="text-primary-light hover:underline">privacy@tynioaibd.com</a></div>
+            <div>Contact form: <a href="/contact" className="text-primary-light hover:underline">tynioaibd.com/contact</a></div>
           </address>
           <p className="mt-3">
             We will respond to verifiable requests within 30 days. For EEA users, if you are not satisfied

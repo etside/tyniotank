@@ -646,7 +646,7 @@ function AiListingsAdmin() {
 
   const tierColor = (t: string) => ({
     enterprise: "bg-yellow-500/10 text-yellow-400 border-yellow-500/30",
-    featured:   "bg-purple-500/10 text-purple-400 border-purple-500/30",
+    featured:   "bg-blue-500/10 text-sky-300 border-blue-500/30",
     pro:        "bg-blue-500/10 text-blue-400 border-blue-500/30",
     free:       "bg-muted text-muted-foreground border-border",
   }[t] ?? "bg-muted text-muted-foreground border-border");
@@ -658,7 +658,7 @@ function AiListingsAdmin() {
           { l: "Total",        v: counts.total,   c: "" },
           { l: "AI listing ON",v: counts.enabled, c: "text-green-400" },
           { l: "Paid (auto)",  v: counts.paid,    c: "text-blue-400" },
-          { l: "Admin promoted",v: counts.admin,  c: "text-violet-400" },
+          { l: "Admin promoted",v: counts.admin,  c: "text-sky-400" },
         ].map(s => (
           <Card key={s.l}><CardContent className="p-4">
             <div className={`text-2xl font-bold ${s.c}`}>{s.v}</div>
@@ -687,7 +687,7 @@ function AiListingsAdmin() {
                 <span className="font-semibold text-sm">{b.name}</span>
                 <span className={`text-[10px] px-1.5 py-0.5 rounded border ${tierColor(b.tier)}`}>{b.tier}</span>
                 {b.ai_listing_enabled && (
-                  <span className={`text-[10px] px-1.5 py-0.5 rounded border ${b.ai_listing_source === "paid" ? "bg-blue-500/10 text-blue-400 border-blue-500/30" : "bg-violet-500/10 text-violet-400 border-violet-500/30"}`}>
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded border ${b.ai_listing_source === "paid" ? "bg-blue-500/10 text-blue-400 border-blue-500/30" : "bg-blue-600/10 text-sky-400 border-blue-600/30"}`}>
                     {b.ai_listing_source}
                   </span>
                 )}

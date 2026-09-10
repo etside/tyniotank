@@ -8,7 +8,7 @@ export default function NotFound() {
 
   useEffect(() => {
     setPageMeta(
-      "404 — Page Not Found | engineersTech",
+      "404 — Page Not Found | Tynio AI",
       "The page you are looking for does not exist. Browse our business directory, categories, or contact us for help.",
     );
   }, []);

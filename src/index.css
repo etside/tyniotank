@@ -18,10 +18,10 @@
     --popover-foreground: 0 0% 95%;
 
     /* ─── Electric violet/magenta accent ─── */
-    --primary:         291 85% 60%;         /* #D946EF — vibrant magenta */
+    --primary:         233 95% 61%;         /* #D946EF — vibrant magenta */
     --primary-foreground: 0 0% 100%;        /* white text on primary */
-    --primary-glow:    270 91% 65%;         /* #A855F7 — violet glow */
-    --primary-light:   280 90% 78%;         /* softer violet for text — meets WCAG AA */
+    --primary-glow:    199 89% 48%;         /* #A855F7 — violet glow */
+    --primary-light:   217 100% 75%;         /* softer violet for text — meets WCAG AA */
 
     --secondary:       240 6% 12%;
     --secondary-foreground: 0 0% 88%;
@@ -29,7 +29,7 @@
     --muted:           240 5% 11%;
     --muted-foreground: 240 6% 52%;
 
-    --accent:          291 85% 60%;
+    --accent:          233 95% 61%;
     --accent-foreground: 0 0% 100%;
 
     --destructive:     0 75% 55%;
@@ -37,7 +37,7 @@
 
     --border:          240 6% 15%;
     --input:           240 6% 12%;
-    --ring:            291 85% 60%;
+    --ring:            233 95% 61%;
     --radius:          0.75rem;
 
     /* Glass */
@@ -46,18 +46,18 @@
     --glass-border:    280 30% 22%;
 
     /* Hero glow */
-    --hero-glow-1:     291 85% 60%;
-    --hero-glow-2:     270 91% 65%;
+    --hero-glow-1:     199 89% 48%;
+    --hero-glow-2:     233 95% 61%;
 
     /* Sidebar */
     --sidebar-background:          240 5% 6%;
     --sidebar-foreground:          0 0% 95%;
-    --sidebar-primary:             291 85% 60%;
+    --sidebar-primary:             233 95% 61%;
     --sidebar-primary-foreground:  0 0% 100%;
     --sidebar-accent:              240 6% 12%;
     --sidebar-accent-foreground:   0 0% 88%;
     --sidebar-border:              240 6% 15%;
-    --sidebar-ring:                291 85% 60%;
+    --sidebar-ring:                233 95% 61%;
   }
 
   /* Light mode stays as opt-in */
@@ -68,15 +68,15 @@
     --card-foreground: 240 10% 8%;
     --popover:         0 0% 100%;
     --popover-foreground: 240 10% 8%;
-    --primary:         291 85% 55%;
+    --primary:         233 95% 55%;
     --primary-foreground: 0 0% 100%;
-    --primary-glow:    270 91% 55%;
-    --primary-light:   280 80% 50%;
+    --primary-glow:    199 89% 45%;
+    --primary-light:   217 91% 60%;
     --secondary:       240 5% 95%;
     --secondary-foreground: 240 10% 8%;
     --muted:           240 5% 95%;
     --muted-foreground: 240 6% 42%;
-    --accent:          291 85% 55%;
+    --accent:          233 95% 55%;
     --accent-foreground: 0 0% 100%;
     --destructive:     0 84% 60%;
     --destructive-foreground: 0 0% 100%;
@@ -213,13 +213,13 @@
   /* ─── Gradient text ─── */
   .gradient-text {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(var(--primary-light)) 0%, hsl(var(--primary)) 60%, hsl(270 91% 65%) 100%);
+    background-image: linear-gradient(135deg, hsl(var(--primary-light)) 0%, hsl(var(--primary)) 60%, hsl(199 89% 48%) 100%);
   }
 
   .animated-gradient-text {
     @apply bg-clip-text text-transparent;
     background-size: 200% 200%;
-    background-image: linear-gradient(120deg, hsl(280 90% 80%) 0%, hsl(291 85% 65%) 40%, hsl(270 91% 70%) 80%, hsl(280 90% 80%) 100%);
+    background-image: linear-gradient(120deg, hsl(217 100% 85%) 0%, hsl(233 95% 70%) 40%, hsl(233 95% 72%) 80%, hsl(217 100% 85%) 100%);
     animation: gradient-shift 4s ease-in-out infinite;
   }
 

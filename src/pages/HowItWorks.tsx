@@ -46,7 +46,7 @@ const steps = [
 
 const faqs = [
   { q: "How do I start selling?", a: "Sign up for a free account, set up your vendor profile, and start listing products or services. The whole process takes about 5 minutes." },
-  { q: "What can I sell on engineersTech?", a: "Tech products (software, hardware, SaaS tools), professional services (development, design, consulting), and digital goods. All listings go through a quality review." },
+  { q: "What can I sell on Tynio AI?", a: "Tech products (software, hardware, SaaS tools), professional services (development, design, consulting), and digital goods. All listings go through a quality review." },
   { q: "How do payments work?", a: "We handle checkout, payment processing, and fraud protection. You receive payouts directly to your bank account on a regular schedule." },
   { q: "Is there a fee to join?", a: "The Starter plan is free forever with up to 10 product listings. Growth plan at ৳1,999/month unlocks unlimited listings, analytics, and a verified badge." },
 ];
@@ -66,7 +66,7 @@ export default function HowItWorks() {
               <span className="animated-gradient-text">three simple steps.</span>
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-8">
-              Join hundreds of vendors selling tech products and services on engineersTech.
+              Join hundreds of vendors selling tech products and services on Tynio AI.
               Set up your storefront, list your offerings, and reach buyers worldwide.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -122,7 +122,7 @@ export default function HowItWorks() {
           <div className="section-eyebrow mb-4 justify-center"><Bot className="w-3.5 h-3.5" /> What LLMs see</div>
           <h2 className="display-2">AI reads your profile, <span className="gradient-text">not just your website.</span></h2>
           <p className="text-muted-foreground text-lg mt-4 leading-relaxed">
-            Every engineersTech listing generates a machine-readable JSON-LD profile that LLMs can ingest directly.
+            Every Tynio AI listing generates a machine-readable JSON-LD profile that LLMs can ingest directly.
           </p>
         </div>
         <div className="grid md:grid-cols-3 gap-4">

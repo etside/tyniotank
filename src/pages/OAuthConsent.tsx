@@ -40,8 +40,8 @@ export default function OAuthConsent() {
 
   useEffect(() => {
     setPageMeta(
-      "Authorize Access — engineersTech",
-      "Authorize an application to access your engineersTech account."
+      "Authorize Access — Tynio AI",
+      "Authorize an application to access your Tynio AI account."
     );
   }, []);
 
@@ -157,7 +157,7 @@ export default function OAuthConsent() {
               Authorize <span className="text-primary">{clientName}</span>
             </h1>
             <p className="text-sm text-muted-foreground">
-              This app wants to connect to your engineersTech account
+              This app wants to connect to your Tynio AI account
             </p>
           </div>
 
@@ -293,7 +293,7 @@ export default function OAuthConsent() {
 
         {/* Footer note */}
         <p className="text-center text-xs text-muted-foreground mt-4">
-          engineersTech · OAuth 2.1 · <a href="/privacy" className="underline underline-offset-2">Privacy</a>
+          Tynio AI · OAuth 2.1 · <a href="/privacy" className="underline underline-offset-2">Privacy</a>
         </p>
       </div>
     </div>

@@ -66,7 +66,7 @@ export default function Submit() {
 
   return (
     <section className="container-tight py-12 max-w-2xl">
-      <h1 className="display-2 mb-2">Start selling on engineersTech</h1>
+      <h1 className="display-2 mb-2">Start selling on Tynio AI</h1>
       <p className="text-muted-foreground mb-8">
         Step 1 of 3: Fill in your store details. Next, choose a plan and set up payment.
         Your store goes live after a quick verification (usually under 24h).

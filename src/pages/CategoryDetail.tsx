@@ -43,7 +43,7 @@ export default function CategoryDetail() {
 
   useEffect(() => {
     if (cat) {
-      document.title = `${title} | engineersTech`;
+      document.title = `${title} | Tynio AI`;
       const m = document.querySelector('meta[name="description"]') || document.createElement("meta");
       m.setAttribute("name", "description");
       m.setAttribute("content", description);

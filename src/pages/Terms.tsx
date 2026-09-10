@@ -4,9 +4,9 @@ import { setPageMeta } from "@/lib/seo";
 export default function Terms() {
   useEffect(() => {
     setPageMeta(
-      "Terms of Service — engineersTech",
-      "Read the engineersTech Terms of Service. Learn about your rights and responsibilities when using our AI-powered business directory.",
-      "https://engineerstechbd.com/terms",
+      "Terms of Service — Tynio AI",
+      "Read the Tynio AI Terms of Service. Learn about your rights and responsibilities when using our AI-powered business directory.",
+      "https://tynioaibd.com/terms",
     );
   }, []);
 
@@ -21,8 +21,8 @@ export default function Terms() {
         <div>
           <h2 className="text-foreground font-display text-2xl font-semibold mb-3">1. Acceptance of Terms</h2>
           <p>
-            By accessing or using the engineersTech platform — including our website at{" "}
-            <a href="https://engineerstechbd.com" className="text-primary-light hover:underline">engineerstechbd.com</a>,
+            By accessing or using the Tynio AI platform — including our website at{" "}
+            <a href="https://tynioaibd.com" className="text-primary-light hover:underline">tynioaibd.com</a>,
             mobile applications, APIs, and any related services (collectively, the "Service") — you agree to be bound
             by these Terms of Service ("Terms") and our Privacy Policy. If you are accessing the Service on behalf of
             a company or other legal entity, you represent that you have authority to bind that entity to these Terms.
@@ -39,7 +39,7 @@ export default function Terms() {
         <div>
           <h2 className="text-foreground font-display text-2xl font-semibold mb-3">2. Description of Services</h2>
           <p>
-            engineersTech is an AI-powered business directory and discovery platform designed to help engineers,
+            Tynio AI is an AI-powered business directory and discovery platform designed to help engineers,
             technology professionals, and procurement teams find, evaluate, and connect with verified agencies,
             software companies, and service providers. Our platform uses proprietary AI scoring ("GEO Score") to
             rank and surface listings across both traditional search engines and large language model (LLM) queries.
@@ -62,7 +62,7 @@ export default function Terms() {
             <li>Provide accurate, current, and complete information during registration.</li>
             <li>Maintain and promptly update your account information to keep it accurate.</li>
             <li>Keep your password confidential and not share your credentials with any third party.</li>
-            <li>Notify us immediately at <a href="mailto:security@engineerstechbd.com" className="text-primary-light hover:underline">security@engineerstechbd.com</a> of any unauthorized use of your account.</li>
+            <li>Notify us immediately at <a href="mailto:security@tynioaibd.com" className="text-primary-light hover:underline">security@tynioaibd.com</a> of any unauthorized use of your account.</li>
             <li>Accept responsibility for all activities that occur under your account.</li>
           </ul>
           <p className="mt-3">
@@ -77,11 +77,11 @@ export default function Terms() {
           <p>
             You retain full ownership of the content you submit to the Service, including business descriptions,
             logos, service lists, contact information, and other materials ("Listing Content"). By submitting
-            Listing Content, you grant engineersTech a worldwide, non-exclusive, royalty-free, sublicensable
+            Listing Content, you grant Tynio AI a worldwide, non-exclusive, royalty-free, sublicensable
             license to:
           </p>
           <ul className="list-disc list-inside mt-3 space-y-1.5">
-            <li>Display your Listing Content on the engineersTech platform and related properties.</li>
+            <li>Display your Listing Content on the Tynio AI platform and related properties.</li>
             <li>Index and distribute your Listing Content via our public structured-data and JSON-LD endpoints for LLM and search-engine discovery.</li>
             <li>Create AI-generated summaries and embeddings derived from your Listing Content to power search and recommendation features.</li>
             <li>Reproduce, adapt, and distribute your Listing Content for the purpose of operating and promoting the Service.</li>
@@ -93,7 +93,7 @@ export default function Terms() {
             legitimate operating entity.
           </p>
           <p className="mt-3">
-            engineersTech reserves the right to review, edit, or remove any Listing Content that violates these
+            Tynio AI reserves the right to review, edit, or remove any Listing Content that violates these
             Terms or that we determine, in our sole discretion, to be harmful to users or the platform.
           </p>
         </div>
@@ -112,13 +112,13 @@ export default function Terms() {
             <li>You will not submit multiple reviews for the same business from different accounts.</li>
           </ul>
           <p className="mt-3">
-            engineersTech uses automated and manual processes to detect fraudulent reviews. Businesses found to
+            Tynio AI uses automated and manual processes to detect fraudulent reviews. Businesses found to
             be soliciting fake reviews may have their listings removed without refund. Users found submitting
             fraudulent reviews will have their accounts permanently suspended.
           </p>
           <p className="mt-3">
             Businesses may report reviews they believe violate these Terms by contacting{" "}
-            <a href="mailto:trust@engineerstechbd.com" className="text-primary-light hover:underline">trust@engineerstechbd.com</a>.
+            <a href="mailto:trust@tynioaibd.com" className="text-primary-light hover:underline">trust@tynioaibd.com</a>.
             We will investigate reported reviews and remove those that clearly violate our policies.
           </p>
         </div>
@@ -133,12 +133,12 @@ export default function Terms() {
           <ul className="list-disc list-inside mt-3 space-y-1.5">
             <li><strong className="text-foreground">Automatic renewal:</strong> Subscriptions renew automatically at the end of each billing period unless cancelled before the renewal date.</li>
             <li><strong className="text-foreground">Cancellation:</strong> You may cancel your subscription at any time from your Dashboard. Cancellation takes effect at the end of your current billing period; no partial refunds are issued for unused time.</li>
-            <li><strong className="text-foreground">Refunds:</strong> Payments are non-refundable except where required by applicable law or where explicitly stated in a written agreement with engineersTech.</li>
+            <li><strong className="text-foreground">Refunds:</strong> Payments are non-refundable except where required by applicable law or where explicitly stated in a written agreement with Tynio AI.</li>
             <li><strong className="text-foreground">Price changes:</strong> We may change subscription prices with at least 30 days' notice. If you do not cancel before the new price takes effect, you agree to be charged the updated rate.</li>
             <li><strong className="text-foreground">Taxes:</strong> Prices displayed are exclusive of applicable taxes. You are responsible for all taxes associated with your subscription in your jurisdiction.</li>
           </ul>
           <p className="mt-3">
-            Payments are processed via SSLCommerz (BDT) and Stripe (USD). engineersTech does not store full
+            Payments are processed via SSLCommerz (BDT) and Stripe (USD). Tynio AI does not store full
             payment card details. All payment processing is governed by the applicable payment processor's terms.
           </p>
         </div>
@@ -147,14 +147,14 @@ export default function Terms() {
         <div>
           <h2 className="text-foreground font-display text-2xl font-semibold mb-3">7. Intellectual Property</h2>
           <p>
-            The engineersTech name, logo, platform design, GEO Score algorithm, AI summary technology, and all
+            The Tynio AI name, logo, platform design, GEO Score algorithm, AI summary technology, and all
             other platform elements (excluding Listing Content submitted by users) are the exclusive intellectual
-            property of engineersTech and its licensors, protected by copyright, trademark, and other applicable
+            property of Tynio AI and its licensors, protected by copyright, trademark, and other applicable
             laws. You may not reproduce, distribute, modify, or create derivative works from any part of the
             Service without our prior written consent.
           </p>
           <p className="mt-3">
-            You may display the "Listed on engineersTech" badge on your website or marketing materials, subject
+            You may display the "Listed on Tynio AI" badge on your website or marketing materials, subject
             to our Brand Guidelines. This limited license may be revoked at any time.
           </p>
         </div>
@@ -194,11 +194,11 @@ export default function Terms() {
           <p>
             THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR
             IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE,
-            AND NON-INFRINGEMENT. engineersTech does not warrant that the Service will be uninterrupted, error-free,
+            AND NON-INFRINGEMENT. Tynio AI does not warrant that the Service will be uninterrupted, error-free,
             or free of viruses or other harmful components.
           </p>
           <p className="mt-3">
-            engineersTech does not endorse, guarantee, or assume responsibility for any business, product, or
+            Tynio AI does not endorse, guarantee, or assume responsibility for any business, product, or
             service advertised or offered through the Service. We do not verify the accuracy of all Listing Content
             and make no representations regarding the quality, safety, or legality of listed businesses.
           </p>
@@ -212,7 +212,7 @@ export default function Terms() {
         <div>
           <h2 className="text-foreground font-display text-2xl font-semibold mb-3">11. Limitation of Liability</h2>
           <p>
-            TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL engineersTech, ITS OFFICERS,
+            TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, IN NO EVENT SHALL Tynio AI, ITS OFFICERS,
             DIRECTORS, EMPLOYEES, AGENTS, OR LICENSORS BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL,
             CONSEQUENTIAL, OR PUNITIVE DAMAGES — INCLUDING LOSS OF PROFITS, LOSS OF DATA, LOSS OF GOODWILL,
             SERVICE INTERRUPTION, OR COST OF SUBSTITUTE SERVICES — ARISING OUT OF OR IN CONNECTION WITH THESE
@@ -262,9 +262,9 @@ export default function Terms() {
             If you have questions about these Terms, please contact us:
           </p>
           <address className="not-italic mt-3 space-y-1">
-            <div className="font-semibold text-foreground">engineersTech</div>
-            <div>Email: <a href="mailto:legal@engineerstechbd.com" className="text-primary-light hover:underline">legal@engineerstechbd.com</a></div>
-            <div>Support: <a href="/contact" className="text-primary-light hover:underline">engineerstechbd.com/contact</a></div>
+            <div className="font-semibold text-foreground">Tynio AI</div>
+            <div>Email: <a href="mailto:legal@tynioaibd.com" className="text-primary-light hover:underline">legal@tynioaibd.com</a></div>
+            <div>Support: <a href="/contact" className="text-primary-light hover:underline">tynioaibd.com/contact</a></div>
           </address>
         </div>
 

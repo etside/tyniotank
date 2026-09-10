@@ -25,7 +25,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 // ─── Floating Social Proof Badges (glassmorphism pills) ─────────────────────
 function FloatingBadges() {
   const badges = [
-    { icon: Star,    color: "text-amber-400",   text: "20,170 users joined engineersTech in the last 7 days" },
+    { icon: Star,    color: "text-amber-400",   text: "20,170 users joined Tynio AI in the last 7 days" },
     { icon: CheckCircle, color: "text-emerald-400", text: "217+ Countries and locations covered" },
     { icon: Rocket,  color: "text-primary-light", text: "28.7B Keywords filtered" },
   ];
@@ -214,7 +214,7 @@ export function RecognitionSection() {
         <h2 className="display-3 mb-2">Recognized globally</h2>
         <p className="text-muted-foreground text-base max-w-xl mx-auto">
           From winning awards to 100+ global partnerships, engineers and tech professionals
-          choose engineersTech daily. One community. Growing every day.
+          choose Tynio AI daily. One community. Growing every day.
         </p>
       </div>
 
@@ -252,7 +252,7 @@ export function AiDiscoverySection({ content }: { content: ReturnType<typeof use
         </h2>
         <p className="text-muted-foreground text-lg leading-relaxed">
           85% of B2B buyers now start research with an LLM. Generative Engine Optimization (GEO)
-          is the discipline of being the answer — not just a link. engineersTech structures your
+          is the discipline of being the answer — not just a link. Tynio AI structures your
           data so AI cites your business first.
         </p>
       </div>

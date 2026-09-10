@@ -17,7 +17,7 @@ const footerColumns = [
   {
     title: "For Sellers",
     links: [
-      { to: "/for-vendors",  label: "Sell on engineersTech" },
+      { to: "/for-vendors",  label: "List your business" },
       { to: "/how-it-works", label: "How It Works" },
       { to: "/pricing",      label: "Pricing" },
       { to: "/leaderboards", label: "Top Vendors" },
@@ -35,7 +35,7 @@ const footerColumns = [
   {
     title: "Company",
     links: [
-      { to: "/about",      label: "About engineersTech" },
+      { to: "/about",      label: "About Tynio AI" },
       { to: "/contact",    label: "Contact Us" },
       { to: "/terms",      label: "Terms of Service" },
       { to: "/privacy",    label: "Privacy Policy" },
@@ -44,8 +44,8 @@ const footerColumns = [
 ];
 
 const socials = [
-  { Icon: Twitter,        label: "Twitter / X", href: "https://twitter.com/engineerstech" },
-  { Icon: Linkedin,       label: "LinkedIn",    href: "https://linkedin.com/company/engineerstech" },
+  { Icon: Twitter,        label: "Twitter / X", href: "https://twitter.com/tynioai" },
+  { Icon: Linkedin,       label: "LinkedIn",    href: "https://linkedin.com/company/tynioai" },
   { Icon: Github,         label: "GitHub",      href: "https://github.com/etside" },
   { Icon: MessageCircle,  label: "Discord",     href: "#" },
 ];
@@ -62,18 +62,10 @@ export default function Footer() {
             {/* Brand column */}
             <div className="col-span-2 md:col-span-3 lg:col-span-1">
               <Link to="/" className="flex items-center gap-2 mb-5 group w-fit">
-                <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7 drop-shadow-[0_0_8px_rgba(217,70,239,0.4)]" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <linearGradient id="footerStarGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#D946EF" />
-                      <stop offset="100%" stopColor="#A855F7" />
-                    </linearGradient>
-                  </defs>
-                  <path d="M12 2L14.09 8.26L20.18 8.63L15.54 12.74L17.12 19.02L12 15.77L6.88 19.02L8.46 12.74L3.82 8.63L9.91 8.26L12 2Z" fill="url(#footerStarGrad)" opacity="0.9" />
-                </svg>
+                <svg viewBox="0 0 26 26" fill="none" className="w-7 h-7 drop-shadow-[0_0_8px_rgba(59,78,250,0.45)]" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="footerStarGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stopColor="#0EA5E9" /><stop offset="100%" stopColor="#3B4EFA" /></linearGradient></defs><circle cx="13" cy="5" r="3.4" fill="url(#footerStarGrad)" /><circle cx="5.5" cy="19" r="3.4" fill="url(#footerStarGrad)" /><circle cx="20.5" cy="19" r="3.4" fill="#0EA5E9" /><path d="M13 8.5L6 16M13 8.5l7 7.5M8.5 19h9" stroke="url(#footerStarGrad)" strokeWidth="1.7" strokeLinecap="round" /></svg>
                 <span className="font-display font-extrabold text-[15px] leading-none">
-                  <span className="text-foreground">engineers</span>
-                  <span className="gradient-text">Tech</span>
+                  <span className="text-foreground">Tynio</span>
+                  <span className="gradient-text">AI</span>
                 </span>
               </Link>
 
@@ -130,15 +122,15 @@ export default function Footer() {
       <div className="border-t border-border/30 bg-background/60">
         <div className="container-tight py-8">
           <p className="text-xs text-muted-foreground/70 leading-relaxed max-w-4xl">
-            engineersTech is an AI-powered business directory platform. All listings are provided
-            for discovery and evaluation purposes only. engineersTech does not guarantee the
+            Tynio AI is an AI-powered business directory platform. All listings are provided
+            for discovery and evaluation purposes only. Tynio AI does not guarantee the
             accuracy, completeness, or availability of any listed business. Businesses are
-            independently operated and not affiliated with engineersTech unless explicitly stated.
+            independently operated and not affiliated with Tynio AI unless explicitly stated.
             GEO scoring is algorithmic and does not constitute a professional recommendation.
-            engineersTech is a registered trademark of engineersTech Ltd.
+            Tynio AI is a registered trademark of Tynio AI Ltd.
           </p>
           <p className="text-xs text-muted-foreground/50 mt-3 leading-relaxed max-w-4xl">
-            Jurisdictional Notice: engineersTech services are available globally. Users are
+            Jurisdictional Notice: Tynio AI services are available globally. Users are
             responsible for compliance with their local laws and regulations. Not a financial
             advisor · Not FDIC Insured · Past performance not indicative of future results.
           </p>
@@ -151,14 +143,14 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
 
             <p className="text-xs text-muted-foreground text-center md:text-left">
-              engineersTech™ ©{" "}{new Date().getFullYear()}{" "}·{" "}
+              Tynio AI™ ©{" "}{new Date().getFullYear()}{" "}·{" "}
               <a
-                href="https://engineerstechbd.com"
+                href="https://tynioaibd.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-semibold text-foreground hover:text-primary-light transition-colors inline-flex items-center gap-1"
               >
-                engineerstechbd.com <ExternalLink className="w-3 h-3" />
+                tynioaibd.com <ExternalLink className="w-3 h-3" />
               </a>
             </p>
 

@@ -293,7 +293,7 @@ export default function Dashboard() {
                       Your business is live in the AI index.
                     </span>{" "}
                     It will appear when users query ChatGPT, Claude, Cursor, Windsurf, and any
-                    other AI tool connected to the engineersTech MCP server.
+                    other AI tool connected to the Tynio AI MCP server.
                   </p>
                 </div>
               )}

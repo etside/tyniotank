@@ -14,9 +14,9 @@ export default function Pricing() {
 
   useEffect(() => {
     setPageMeta(
-      'Pricing — engineersTech',
-      'Simple transparent pricing for business listings on engineersTech. Free, Pro and Enterprise plans available.',
-      'https://engineerstechbd.com/pricing',
+      'Pricing — Tynio AI',
+      'Simple transparent pricing for business listings on Tynio AI. Free, Pro and Enterprise plans available.',
+      'https://tynioaibd.com/pricing',
     );
   }, []);
 
@@ -57,7 +57,7 @@ export default function Pricing() {
         <p className="text-lg text-muted-foreground">
           {bizParam
             ? "All listings require a paid plan. After payment, our admin team verifies your submission and your listing goes live."
-            : "Every listing on engineersTech is paid. Pay in USD or BDT via SSLCommerz."}
+            : "Every listing on Tynio AI is paid. Pay in USD or BDT via SSLCommerz."}
         </p>
       </div>
 

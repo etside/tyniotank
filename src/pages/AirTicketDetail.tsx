@@ -12,9 +12,9 @@ export default function AirTicketDetail() {
   useEffect(() => {
     if (service) {
       setPageMeta(
-        `${service.name} — Air Ticket Services | engineersTech`,
+        `${service.name} — Air Ticket Services | Tynio AI`,
         `${service.description} Features, airlines, pricing, and processing time for ${service.name}.`,
-        `https://engineerstechbd.com/air-tickets/${service.slug}`,
+        `https://tynioaibd.com/air-tickets/${service.slug}`,
       );
     }
   }, [service]);
@@ -46,8 +46,8 @@ export default function AirTicketDetail() {
     description: service.description,
     provider: {
       "@type": "Organization",
-      name: "engineersTech",
-      url: "https://engineerstechbd.com",
+      name: "Tynio AI",
+      url: "https://tynioaibd.com",
     },
     areaServed: {
       "@type": "Country",
@@ -59,7 +59,7 @@ export default function AirTicketDetail() {
       price: service.priceRange,
       priceCurrency: "BDT",
     },
-    url: `https://engineerstechbd.com/air-tickets/${service.slug}`,
+    url: `https://tynioaibd.com/air-tickets/${service.slug}`,
   };
 
   const faqJsonLd = {

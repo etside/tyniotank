@@ -88,11 +88,11 @@ export default function BusinessProfile() {
   useEffect(() => {
     if (!business) return;
     const desc = business.tagline
-      || (business.description ? business.description.slice(0, 160) : `${business.name} — verified business listing on engineersTech.`);
+      || (business.description ? business.description.slice(0, 160) : `${business.name} — verified business listing on Tynio AI.`);
     setPageMeta(
-      `${business.name} — engineersTech`,
+      `${business.name} — Tynio AI`,
       desc,
-      `https://engineerstechbd.com/business/${business.slug}`,
+      `https://tynioaibd.com/business/${business.slug}`,
     );
   }, [business]);
 
@@ -202,7 +202,7 @@ export default function BusinessProfile() {
     "@type": "ProfessionalService",
     name: business.name,
     description: business.description ?? business.tagline ?? "Verified AI-ready business listing.",
-    url: `https://engineerstechbd.com/business/${business.slug}`,
+    url: `https://tynioaibd.com/business/${business.slug}`,
     telephone: business.phone ?? undefined,
     email: business.email ?? undefined,
     address: business.location ? { "@type": "PostalAddress", addressLocality: business.location, addressCountry: business.country ?? undefined } : undefined,
