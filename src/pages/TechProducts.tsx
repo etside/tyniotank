@@ -107,9 +107,9 @@ export default function TechProducts() {
 
   useEffect(() => {
     setPageMeta(
-      "Tech Products — Trending Gadgets, Laptops & Components | engineersTech",
+      "Tech Products — Trending Gadgets, Laptops & Components | Tynio AI",
       "Shop trending tech in Bangladesh — laptops, gaming gear, PC components, peripherals, wearables, and accessories. Preorder the latest gadgets.",
-      "https://engineerstechbd.com/tech-products",
+      "https://tynioaibd.com/tech-products",
     );
   }, []);
 

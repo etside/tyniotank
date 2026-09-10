@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { ShieldCheck, Lock, FileSignature, Eye } from "lucide-react";
 import { DEALS, type Deal } from "./deals";
+import { Link } from "react-router-dom";
 import { useAccess, effectiveDeal } from "./access";
 import { useShark } from "./store";
 import { fmt$ } from "./store";
@@ -28,8 +29,9 @@ function TeaserCard({ d, onOpen, locked }: { d: Deal; onOpen: () => void; locked
       <ul className="mt-3 space-y-1.5 text-xs text-white/60">
         {d.highlights.map((h) => <li key={h} className="flex gap-1.5"><span className="text-[#00C853]">▸</span>{h}</li>)}
       </ul>
+      <Link to={`/shark/deal/${d.id}`} className="mt-2 block text-center text-xs text-[#0EA5E9] hover:underline">View full deal page →</Link>
       <button onClick={onOpen}
-        className={`mt-4 flex items-center justify-center gap-1.5 rounded-full py-2.5 text-sm font-bold transition-transform hover:scale-[1.02] ${locked ? "bg-white/10" : "bg-[#3B4EFA]"}`}>
+        className={`mt-2 flex items-center justify-center gap-1.5 rounded-full py-2.5 text-sm font-bold transition-transform hover:scale-[1.02] ${locked ? "bg-white/10" : "bg-[#3B4EFA]"}`}>
         {locked ? <><Lock className="h-3.5 w-3.5" /> Sign NDA to view brief</> : <><Eye className="h-3.5 w-3.5" /> View investor brief</>}
       </button>
     </motion.div>
@@ -40,12 +42,13 @@ export default function Deals() {
   const ndas = useAccess((s) => s.ndas);
   const signNda = useAccess((s) => s.signNda);
   const overrides = useAccess((s) => s.overrides);
+  const customDeals = useAccess((s) => s.customDeals);
   const [ndaFor, setNdaFor] = useState<Deal | null>(null);
   const [briefFor, setBriefFor] = useState<Deal | null>(null);
   const [invName, setInvName] = useState("");
   const kyc = useShark((st) => st.session.kyc);
 
-  const deals = useMemo(() => DEALS.map((d) => effectiveDeal(d, overrides)).filter((d) => !d.hidden), [overrides]);
+  const deals = useMemo(() => [...DEALS, ...customDeals].map((d) => effectiveDeal(d, overrides)).filter((d) => !d.hidden), [overrides, customDeals]);
 
   const openDeal = (d: Deal) => {
     if (ndas.some((n) => n.dealId === d.id)) setBriefFor(d);

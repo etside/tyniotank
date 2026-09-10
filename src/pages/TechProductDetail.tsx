@@ -12,9 +12,9 @@ export default function TechProductDetail() {
   useEffect(() => {
     if (product) {
       setPageMeta(
-        `${product.name} — Tech Products | engineersTech`,
+        `${product.name} — Tech Products | Tynio AI`,
         `${product.description} Price: ${product.price}. Specs, features, and preorder details for ${product.name} in Bangladesh.`,
-        `https://engineerstechbd.com/tech-products/${product.slug}`,
+        `https://tynioaibd.com/tech-products/${product.slug}`,
       );
     }
   }, [product]);
@@ -56,7 +56,7 @@ export default function TechProductDetail() {
         ? "https://schema.org/InStock"
         : "https://schema.org/PreOrder",
     },
-    url: `https://engineerstechbd.com/tech-products/${product.slug}`,
+    url: `https://tynioaibd.com/tech-products/${product.slug}`,
   };
 
   const faqJsonLd = {

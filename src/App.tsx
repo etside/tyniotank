@@ -16,6 +16,7 @@ import Deposit from "./shark/Deposit";
 import Legal from "./shark/Legal";
 import Deals from "./shark/Deals";
 import TankAdmin from "./shark/TankAdmin";
+import DealDetail from "./shark/DealDetail";
 import Listings from "./pages/Listings";
 import BusinessProfile from "./pages/BusinessProfile";
 import About from "./pages/About";
@@ -88,6 +89,7 @@ const App = () => (
               <Route path="deposit" element={<Deposit />} />
               <Route path="legal" element={<Legal />} />
               <Route path="deals" element={<Deals />} />
+              <Route path="deal/:id" element={<DealDetail />} />
               <Route path="admin" element={<TankAdmin />} />
             </Route>
             <Route element={<SiteLayout />}>
